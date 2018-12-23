@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Runner</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="index.css">
+	</head>
+	<body>
+		<div id="container"></div>
+		<div id="coucik"></div>
+		<div id="lobj"></div>
+		<div id="TutContainer"></div>
+		<div id="title">
+		<button class="button" onclick="openFullscreen();">Open Fullscreen</button>
+		<h1>simple Runner 3D</h1>
+      <h2 id="start-button">Start</h2>
+			<h2 id="credit-button">Credit</h2>
+		</div>
+		<div id="creditlg" class="hide"><img src="img/logo.png"></div>
+		<script src="js/three.js"></script>
+		<script src="js/OrbitControls.js"></script>
+		<script src="js/ammo.js"></script>
+		<script src="js/OutlineEffect.js"></script>
+		<script src="js/GLTFLoader.js"></script>
+		<script src="main.js"></script>
+
+
+		<script>
+		var elem = document.documentElement;
+		function openFullscreen() {
+		  if (elem.requestFullscreen) {
+		    elem.requestFullscreen();
+		  } else if (elem.mozRequestFullScreen) { /* Firefox */
+		    elem.mozRequestFullScreen();
+		  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+		    elem.webkitRequestFullscreen();
+		  } else if (elem.msRequestFullscreen) { /* IE/Edge */
+		    elem.msRequestFullscreen();
+		  }
+		}
+
+		</script>
+
+		<div id="note">Note: Internet Explorer 10 and earlier does not support the msRequestFullscreen() method.</div>
+	</body>
+</html>

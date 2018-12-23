@@ -1,0 +1,85 @@
+body{
+	color: #61443e;
+	font-family:Monospace;
+	font-size:15px;
+	text-align:center;
+  margin: 0;
+	overflow: hidden;
+}
+.button{
+	position: absolute;
+	bottom: 20px;
+	cursor: pointer;
+	font-size: 16px;
+}
+.button:hover {
+	background-color: #fffffe
+}
+.button:active {
+  background-color: #fffffc;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+#note{
+	position:absolute;
+	bottom: 20px;
+	text-align: right;
+}
+.hide {
+  display:none;
+}
+#title {
+  position:absolute;
+  z-index:10;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.3);
+  text-align:center;
+  color:white;
+}
+#title h2:hover {
+  background-color:rgba(255,255,255,0.2);
+  color:#ffff00;
+  text-shadow:0 0 8px #000000;
+}
+#creditlg {
+  position:absolute;
+  z-index:10;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.5);
+}
+#creditlg img {
+  top:50vh;
+  left:50vw;
+  margin-left:-367px;
+  margin-top:-247px;
+  width:735px;
+  height:494px;
+  position:absolute;
+}
+/* Chrome, Safari and Opera syntax */
+:-webkit-full-screen {
+  background-color: yellow;
+}
+
+/* Firefox syntax */
+:-moz-full-screen {
+  background-color: yellow;
+}
+
+/* IE/Edge syntax */
+:-ms-fullscreen {
+  background-color: yellow;
+}
+
+/* Standard syntax */
+:fullscreen {
+  background-color: yellow;
+}
+
+/* Style the button */
+button {
+  padding: 20px;
+  font-size: 20px;
+}
