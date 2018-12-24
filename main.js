@@ -329,6 +329,8 @@ function updatePhysics( deltaTime ) {
   //console.log(THREE.Math.randInt(-20,20))
   let randCreate = THREE.Math.randInt(-30,30)
   if(randCreate==1)createBox()
+  if(clickcount>20&&randCreate==10)createCan()
+  if(clickcount>50&&randCreate==-10)createCone()
   //if(randCreate==10)createCan()
   //if(randCreate==-10)createCone()
 
