@@ -27,7 +27,7 @@ var clickRequest=false
 var cc=0 , lo=0
 var boxes = []
 var intersects
-/*var startButton = document.getElementById('start-button')
+var startButton = document.getElementById('start-button')
 startButton.addEventListener('click',init)
 var crButton = document.getElementById('credit-button')
 crButton.addEventListener('click',showCredit)
@@ -39,9 +39,9 @@ function showCredit(){
 }
 function hideCredit(){
   creditlg.style.display = 'none'
-}*/
+}
 // - Main code -
-init()
+//init()
 animate()
 // - Functions -
 //เรียกใข้ฟังก์ชั่นที่จะดำเนินการ
@@ -134,7 +134,7 @@ function createObjects() {
   quat.set( 0, 0, 0, 1 )   //กำหนดการหมุน
   createRigidBody( cylinderMesh, cylinderPhysicsShape, cldMass, pos, quat )  */
   var cubeGeometry = new THREE.CubeGeometry(2,2,2,1,1,1)
-	var wireMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe:true } )
+	var wireMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe:true} )
 	mouseMesh = new THREE.Mesh( cubeGeometry, wireMaterial )
 	mouseMesh.position.set(0, 0, -5)
 	scene.add( mouseMesh )
@@ -196,6 +196,21 @@ function createBox(){
     createRigidBody( boxMesh, boxPS, boxMass, pos, quat )
     boxes.push(boxMesh)   //ทำการบรรจุไปไว้ในอาเรย์
   //}
+}
+
+function createCan(){
+  let cldRadius = .2
+  let cldHeight = 0.8
+  let cldMass = 2   //น้ำหนักวัตถุ
+  let cylinderMesh = new THREE.Mesh(new THREE.CylinderBufferGeometry(cldRadius,cldRadius,cldHeight,20,1),new THREE.MeshPhongMaterial( { color: 0xd97070 } ))
+  cylinderMesh.castShadow = true
+  cylinderMesh.receiveShadow = true
+  //สร้างฟิสิกส์รูปทรงกระบอก
+  let cylinderPhysicsShape = new Ammo.btCylinderShape( new Ammo.btVector3(cldRadius,cldHeight * 0.5,cldRadius ) )
+  cylinderPhysicsShape.setMargin(margin)   //ขอบวัตถุ
+  pos.set( THREE.Math.randInt(-10,10), 0, -100 )   //กำหนดตำแหน่ง
+  quat.set( 0, 0, 0, 1 )   //กำหนดการหมุน
+  createRigidBody( cylinderMesh, cylinderPhysicsShape, cldMass, pos, quat )
 }
 
 function createRigidBody( threeObject, physicsShape, mass, pos, quat ) {
@@ -333,6 +348,7 @@ function updatePhysics( deltaTime ) {
   //console.log(THREE.Math.randInt(-20,20))
   let randCreate = THREE.Math.randInt(-20,20)
   if(randCreate==1)createBox()
+  if(randCreate==10)createCan()
 
   for (var vertexIndex = 0; vertexIndex < mouseMesh.geometry.vertices.length; vertexIndex++)
 	{
