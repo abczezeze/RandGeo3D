@@ -4,6 +4,7 @@ var textureLoader
 var clock = new THREE.Clock()
 var ball,fa01
 var mouseMesh
+var ambientLight
 // Physics variables
 var gravityConstant = -9.8
 var collisionConfiguration
@@ -79,7 +80,7 @@ function initGraphics() {
   container = document.getElementById( 'container' )
   container.appendChild(renderer.domElement);
 
-  var ambientLight = new THREE.AmbientLight( 0x404040 )
+  ambientLight = new THREE.AmbientLight( 0x404040 )
   scene.add( ambientLight )
 
   var light = new THREE.DirectionalLight( 0xffffff, 1 )
@@ -354,14 +355,17 @@ function updatePhysics( deltaTime ) {
   if(randCreate==1){
     createBox()
     coucik.style.color = '#990000'
+    mouseMesh.material.color.setHex( 0xaa0000 );
   }
-  if(clickcount>=20&&clickcount<=49&&randCreate==10){
+  if(clickcount>=20&&randCreate==10){
     createCan()
     coucik.style.color = '#00bb00'
+    mouseMesh.material.color.setHex( 0x00bb00 );
   }
   if(clickcount>=50&&randCreate==-10){
     createCone()
     coucik.style.color = '#0000ff'
+    mouseMesh.material.color.setHex( 0x0000ff );
   }
 
   for (var vertexIndex = 0; vertexIndex < mouseMesh.geometry.vertices.length; vertexIndex++)
