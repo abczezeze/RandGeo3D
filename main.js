@@ -118,12 +118,29 @@ function initPhysics() {
   physicsWorld = new Ammo.btDiscreteDynamicsWorld( dispatcher, broadphase, solver, collisionConfiguration )
   physicsWorld.setGravity( new Ammo.btVector3( 0, 0, -gravityConstant ) )
 }
-
+//class
+/*var Roboto88 = function(){
+  this.mesh = new THREE.object3D()
+  this.mesh.name = "roboto88"
+  //head
+  var headGeo = new THREE.IcosahedronGeometry(0.5,0)
+  var headMat = new THREE.MeshLambertMaterial( {color:0x3300aa, wireframe:true})
+  var headMesh = new THREE.Mesh(headGeo,headMat)
+  headMesh.position.set(0,1,0)
+  this.mesh.add(headMesh)
+  //body
+  var bodyGeometry = new THREE.CubeGeometry(2,2,2,1,1,1)
+	var bodyMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe:true} )
+	bodyMesh = new THREE.Mesh( bodyGeometry, bodyMaterial )
+	bodyMesh.position.set(0, 0, 0)
+  this.mesh.add(bodyMesh)
+}*/
+//3D models
 function createObjects() {
-  var cubeGeometry = new THREE.CubeGeometry(2,2,2,1,1,1)
-	var wireMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe:true} )
-	mouseMesh = new THREE.Mesh( cubeGeometry, wireMaterial )
-	mouseMesh.position.set(0, 0, -5)
+  var bodyGeometry = new THREE.CubeGeometry(2,2,2,1,1,1)
+  var bodyMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe:true} )
+  mouseMesh = new THREE.Mesh( bodyGeometry, bodyMaterial )
+  mouseMesh.position.z = -5
 	scene.add( mouseMesh )
 }
 
@@ -132,7 +149,7 @@ function createBox(){
   let boxY = 1+ Math.random() * 3
   let boxZ = 1+ Math.random() * 3
   let boxMass = 1
-  let arrayTexture = ['tt/mcManisFs_nm.png','tt/mcMuaFS_nm.png','tt/mcMonChok_nm.png','tt/MrA_nm.png','tt/MrB_nm.png','tt/MrC_nm.png']
+  let arrayTexture = ['tt/mcManisFs_nm.png','tt/mcMuaFS_nm.png','tt/mcMonChok_nm.png']
   let randIndex = THREE.Math.randInt(0,arrayTexture.length-1)
   //console.log('randIndex=',randIndex);
   let boxTexture = new THREE.TextureLoader().load( arrayTexture[randIndex] );
@@ -144,7 +161,7 @@ function createBox(){
   let boxPS = new Ammo.btBoxShape( new Ammo.btVector3(boxX*0.5,boxY*0.5,boxZ*0.5 ) )
   boxPS.setMargin(margin)
   pos.set( THREE.Math.randInt(-10,10), 0, -100 )
-  quat.set( 0, 0, 0, THREE.Math.randInt(-100  ,100) )
+  quat.set( THREE.Math.randInt(-10,10), 0, 0, THREE.Math.randInt(-100  ,100) )
   createRigidBody( boxMesh, boxPS, boxMass, pos, quat )
   boxes.push(boxMesh)
 }
@@ -153,14 +170,17 @@ function createCan(){
   let cldRadius = .6+ Math.random() *3
   let cldHeight = 0.8+ Math.random() *3
   let cldMass = 0.5
-  let cylinderMesh = new THREE.Mesh(new THREE.CylinderBufferGeometry(cldRadius,cldRadius,cldHeight,20,1),new THREE.MeshPhongMaterial( { color:Math.random()*0xffffff } ))
+  let arrayTexture = ['tt/MrA_nm.png','tt/MrB_nm.png','tt/MrC_nm.png']
+  let randIndex = THREE.Math.randInt(0,arrayTexture.length-1)
+  let cldTexture = new THREE.TextureLoader().load( arrayTexture[randIndex] );
+  let cylinderMesh = new THREE.Mesh(new THREE.CylinderBufferGeometry(cldRadius,cldRadius,cldHeight,20,1),new THREE.MeshPhongMaterial( { color:Math.random()*0xffffff, normalMap: cldTexture } ))
   cylinderMesh.castShadow = true
   cylinderMesh.receiveShadow = true
   //สร้างฟิสิกส์รูปทรงกระบอก
   let cylinderPhysicsShape = new Ammo.btCylinderShape( new Ammo.btVector3(cldRadius,cldHeight * 0.5,cldRadius ) )
   cylinderPhysicsShape.setMargin(margin)   //ขอบวัตถุ
   pos.set( THREE.Math.randInt(-10,10), 0, -100 )   //กำหนดตำแหน่ง
-  quat.set( 0, 0, 0, THREE.Math.randInt(-10,10) )   //กำหนดการหมุน
+  quat.set( THREE.Math.randInt(-10,10), 0, 0, THREE.Math.randInt(-10,10) )   //กำหนดการหมุน
   createRigidBody( cylinderMesh, cylinderPhysicsShape, cldMass, pos, quat )
   boxes.push(cylinderMesh)
 }
@@ -169,13 +189,16 @@ function createCone(){
   let coneRadius = 1+ Math.random() *2
   let coneHeight = 2+ Math.random() *2
   let coneMass = 1.5
-  let coneMesh = new THREE.Mesh(new THREE.ConeBufferGeometry( coneRadius, coneHeight, 20, 2 ),new THREE.MeshPhongMaterial( { color:Math.random()*0xffffff} ))
+  let arrayTexture = ['tt/fm_jaja_nm.png','tt/fm_jina_nm.png','tt/fm_mama_nm.png','tt/fm_moya_nm.png']
+  let randIndex = THREE.Math.randInt(0,arrayTexture.length-1)
+  let coneTexture = new THREE.TextureLoader().load( arrayTexture[randIndex] );
+  let coneMesh = new THREE.Mesh(new THREE.ConeBufferGeometry( coneRadius, coneHeight, 20, 2 ),new THREE.MeshPhongMaterial( { color:Math.random()*0xffffff, normalMap: coneTexture} ))
   coneMesh.castShadow = true
   coneMesh.receiveShadow = true
   let conePhysicsShape = new Ammo.btConeShape( coneRadius,coneHeight )
   conePhysicsShape.setMargin(margin)   //ขอบวัตถุ
   pos.set( THREE.Math.randInt(-10,10), 0, -100 )   //กำหนดตำแหน่ง
-  quat.set( 0, 0, 0, THREE.Math.randInt(-10,10) )   //กำหนดการหมุน
+  quat.set( THREE.Math.randInt(-10,10), 0, 0, THREE.Math.randInt(-10,10) )   //กำหนดการหมุน
   createRigidBody( coneMesh, conePhysicsShape, coneMass, pos, quat )
   boxes.push(coneMesh)
 }
@@ -306,8 +329,8 @@ function render() {
   lobj.innerText = "time: "+time.toFixed( 2 )
   //console.log("time="+time)
 }
-var originPoint = mouseMesh.position.clone();
-var dd=0
+
+var originPoint = mouseMesh.position.clone()
 
 function updatePhysics( deltaTime ) {
 
@@ -328,12 +351,18 @@ function updatePhysics( deltaTime ) {
   }
   //console.log(THREE.Math.randInt(-20,20))
   let randCreate = THREE.Math.randInt(-30,30)
-  if(randCreate==1)createBox()
-  if(clickcount>20&&randCreate==10)createCan()
-  if(clickcount>50&&randCreate==-10)createCone()
-  //if(randCreate==10)createCan()
-  //if(randCreate==-10)createCone()
-
+  if(randCreate==1){
+    createBox()
+    coucik.style.color = '#990000'
+  }
+  if(clickcount>=20&&clickcount<=49&&randCreate==10){
+    createCan()
+    coucik.style.color = '#00bb00'
+  }
+  if(clickcount>=50&&randCreate==-10){
+    createCone()
+    coucik.style.color = '#0000ff'
+  }
 
   for (var vertexIndex = 0; vertexIndex < mouseMesh.geometry.vertices.length; vertexIndex++)
 	{
@@ -351,6 +380,6 @@ function updatePhysics( deltaTime ) {
     //console.log(collisionResults[0])
 	}
   //พิมพ์ค่าจำนวนที่ได้นับไว้บนหน้าเว็บ
-  coucik.innerText = "จำนวนลูกบอลที่ยิง: "+clickcount
+  coucik.innerText = "Score: "+clickcount
   console.log('click',clickcount);
 }
