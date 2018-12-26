@@ -95,7 +95,18 @@ function initGraphics() {
   light.shadow.mapSize.x = 1024
   light.shadow.mapSize.y = 1024
   scene.add( light )
-  //กรณีประกาศตัวแปรไว้ที่ไฟล์ .html แล้ว ไม่ต้องประกาศอีก
+  //sound
+  var listener = new THREE.AudioListener();
+  camera.add( listener );
+  var sound = new THREE.Audio( listener );
+  var audioLoader = new THREE.AudioLoader();
+  audioLoader.load( 'sound/firstmp.mp3', function( buffer ) {
+	    sound.setBuffer( buffer );
+	    sound.setLoop( true );
+	    sound.setVolume( 0.3 );
+	    sound.play();
+  });
+  //html-css
   coucik = document.getElementById("coucik")
   coucik.style.position = 'absolute'
   coucik.style.bottom = '55px'
