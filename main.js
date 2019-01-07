@@ -51,6 +51,8 @@ animate()
 function init() {
   var title = document.getElementById('title')
   title.remove()
+  var loadwait = document.getElementById('loadwait')
+  loadwait.remove()
   initGraphics()
   initPhysics()
   createObjects()
@@ -59,10 +61,10 @@ function init() {
 
 function initGraphics() {
   scene = new THREE.Scene()
-  //scene.background = new THREE.Color( 0xbfd1e5 )
-  scene.background = new THREE.CubeTextureLoader()
-      .setPath( 'tt/skybox' )
-      .load( [ 'left.png', 'right.png', 'top.png', 'botom.png', 'font.png', 'back.png' ] );
+  scene.background = new THREE.Color( 0xbfd1e5 )
+  //scene.background = new THREE.CubeTextureLoader()
+  //    .setPath( 'tt/skybox' )
+  //    .load( [ 'left.png', 'right.png', 'top.png', 'botom.png', 'font.png', 'back.png' ] );
 
   camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 )
   camera.position.set(0,0,5)
