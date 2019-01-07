@@ -1,5 +1,5 @@
 body{
-	color: #61443e;
+	background:rgba(0,0,0,0.5);
 	font-family:Monospace;
 	font-size:15px;
 	text-align:center;
@@ -19,11 +19,6 @@ body{
   background-color: #fffffc;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
-}
-#note{
-	position:absolute;
-	bottom: 20px;
-	text-align: right;
 }
 .hide {
   display:none;
@@ -60,22 +55,22 @@ body{
 }
 /* Chrome, Safari and Opera syntax */
 :-webkit-full-screen {
-  background-color: yellow;
+  background-color: black;
 }
 
 /* Firefox syntax */
 :-moz-full-screen {
-  background-color: yellow;
+  background-color: black;
 }
 
 /* IE/Edge syntax */
 :-ms-fullscreen {
-  background-color: yellow;
+  background-color: black;
 }
 
 /* Standard syntax */
 :fullscreen {
-  background-color: yellow;
+  background-color: black;
 }
 
 /* Style the button */

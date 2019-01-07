@@ -20,6 +20,8 @@ var raycal = new THREE.Vector3()
 var pos = new THREE.Vector3()
 var quat = new THREE.Quaternion()
 var time = 0
+var ballnum=0
+var ballshooter = []
 
 //initInput
 var mouseCoords = new THREE.Vector2()
@@ -57,14 +59,14 @@ function init() {
 
 function initGraphics() {
   scene = new THREE.Scene()
-  scene.background = new THREE.Color( 0xbfd1e5 )
+  //scene.background = new THREE.Color( 0xbfd1e5 )
+  scene.background = new THREE.CubeTextureLoader()
+      .setPath( 'tt/skybox' )
+      .load( [ 'left.png', 'right.png', 'top.png', 'botom.png', 'font.png', 'back.png' ] );
 
   camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 )
   camera.position.set(0,0,5)
   camera.lookAt(scene.position)
-  //camera.rotation.z = THREE.Math.degToRad(180)
-  //console.log(camera.rotation.z)
-
   /*controls = new THREE.OrbitControls( camera )
   controls.target.set( 0, 2, 0 )
   controls.maxDistance = 14
@@ -215,7 +217,7 @@ function createCone(){
   boxes.push(coneMesh)
 }
 
-function createSphere(){
+/*function createSphere(){
   let sphereRadius = 1 + Math.random() * 2
   let sphereMass = 1.2
   let sphereMesh = new THREE.Mesh(new THREE.SphereBufferGeometry( radius, 20, 20 ),new THREE.MeshPhongMaterial( { color:Math.random()*0xffffff} ))
@@ -227,7 +229,7 @@ function createSphere(){
   quat.set( 0, 0, 0, 0)
   createRigidBody( sphereMesh, spherePhysicsShape, sphereMass, pos, quat )
   boxes.push(sphereMesh)
-}
+}*/
 
 function createRigidBody( threeObject, physicsShape, mass, pos, quat ) {
   threeObject.position.copy( pos )
@@ -276,8 +278,11 @@ function onDocumentMousemove(event){
   mouseMesh.position.copy(wpos);
 }
 //กรณีการจิ้มในมือถือเรียกใช้ฟังก์ชั่นคลิกในคอมพิวเตอร์
+
 function onDocumentMouseDown(event){
   event.preventDefault()
+  ballnum++
+  //console.log("ballnum ",ballnum);
   mouseCoords.x = (event.clientX/window.innerWidth)*2-1
   mouseCoords.y = -(event.clientY/window.innerHeight)*2+1
   raycaster.setFromCamera(mouseCoords,camera)
@@ -292,6 +297,8 @@ function onDocumentMouseDown(event){
     let ball = new THREE.Mesh( new THREE.SphereBufferGeometry( ballRadius, 20, 20 ), new THREE.MeshPhongMaterial( { color: 0x24d770 } ) )
     ball.castShadow = true
     ball.receiveShadow = true
+    ball.name = "ball"+ballnum
+    ballshooter.push(ball)
     let ballShape = new Ammo.btSphereShape( ballRadius )
     ballShape.setMargin( margin )
     pos.copy( raycaster.ray.direction )
@@ -309,8 +316,9 @@ function onDocumentMouseDown(event){
     (element, index, array) =>
     console.log(element, index, array)
   )
-  for(let key in cans){
-    console.log(key, '=>', cans[key])
+  console.log("Haha: ",ballBody.getWorldTransform());
+  for(let key in ballBody){
+    console.log(key, '=>', ballBody[key])
   }*/
 
 }
@@ -361,8 +369,9 @@ function updatePhysics( deltaTime ) {
       objThree.quaternion.set( q.x(), q.y(), q.z(), q.w() )
     }
   }
-  //console.log(THREE.Math.randInt(-20,20))
-  let randCreate = THREE.Math.randInt(-30,30)
+  //console.log(THREE.Math.randInt(-30,30));
+  //console.log(deltaTime);
+  let randCreate = THREE.Math.randInt(-20,20)
   if(randCreate==1){
     createBox()
     coucik.style.color = '#990000'
@@ -378,7 +387,6 @@ function updatePhysics( deltaTime ) {
     coucik.style.color = '#0000ff'
     mouseMesh.material.color.setHex( 0x0000ff );
   }
-
   for (var vertexIndex = 0; vertexIndex < mouseMesh.geometry.vertices.length; vertexIndex++)
 	{
 		var localVertex = mouseMesh.geometry.vertices[vertexIndex].clone();
@@ -394,7 +402,15 @@ function updatePhysics( deltaTime ) {
     }
     //console.log(collisionResults[0])
 	}
+  var raycasterball = new THREE.Raycaster(mouseCoords,camera)
+  var ballintersects = raycaster.intersectObjects(ballshooter)
+  if(ballintersects.length>0){
+    if(ballintersects[0].object.position.z>10)scene.remove(ballintersects[0].object)
+    console.log(ballintersects[0].object.name);
+    console.log(ballintersects[0].object.position);
+  }
+
   //พิมพ์ค่าจำนวนที่ได้นับไว้บนหน้าเว็บ
   coucik.innerText = "Score: "+clickcount
-  console.log('click',clickcount);
+  //console.log('click',clickcount);
 }
