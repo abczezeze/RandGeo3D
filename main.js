@@ -153,7 +153,7 @@ function initPhysics() {
 }*/
 //3D models
 function createObjects() {
-  var bodyGeometry = new THREE.CubeGeometry(2,2,2,1,1,1)
+  var bodyGeometry = new THREE.CubeGeometry(1,1,1)
   var bodyMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe:true} )
   mouseMesh = new THREE.Mesh( bodyGeometry, bodyMaterial )
   mouseMesh.position.z = -5
@@ -176,8 +176,8 @@ function createBox(){
   //canMesh.name = "Can"+numCan++
   let boxPS = new Ammo.btBoxShape( new Ammo.btVector3(boxX*0.5,boxY*0.5,boxZ*0.5 ) )
   boxPS.setMargin(margin)
-  pos.set( THREE.Math.randInt(-10,10), 0, -100 )
-  quat.set( THREE.Math.randInt(-10,10), 0, 0, THREE.Math.randInt(-100  ,100) )
+  pos.set( THREE.Math.randInt(-10,10), THREE.Math.randInt(-10,10), -100 )
+  quat.set( THREE.Math.randInt(-10,10), 0, THREE.Math.randInt(-10,10), THREE.Math.randInt(-100  ,100) )
   createRigidBody( boxMesh, boxPS, boxMass, pos, quat )
   boxes.push(boxMesh)
 }
@@ -195,8 +195,8 @@ function createCan(){
   //สร้างฟิสิกส์รูปทรงกระบอก
   let cylinderPhysicsShape = new Ammo.btCylinderShape( new Ammo.btVector3(cldRadius,cldHeight * 0.5,cldRadius ) )
   cylinderPhysicsShape.setMargin(margin)   //ขอบวัตถุ
-  pos.set( THREE.Math.randInt(-10,10), 0, -100 )   //กำหนดตำแหน่ง
-  quat.set( THREE.Math.randInt(-10,10), 0, 0, THREE.Math.randInt(-10,10) )   //กำหนดการหมุน
+  pos.set( THREE.Math.randInt(-10,10), THREE.Math.randInt(-10,10), -100 )   //กำหนดตำแหน่ง
+  quat.set( THREE.Math.randInt(-10,10), 0, THREE.Math.randInt(-10,10), THREE.Math.randInt(-10,10) )   //กำหนดการหมุน
   createRigidBody( cylinderMesh, cylinderPhysicsShape, cldMass, pos, quat )
   boxes.push(cylinderMesh)
 }
@@ -213,8 +213,8 @@ function createCone(){
   coneMesh.receiveShadow = true
   let conePhysicsShape = new Ammo.btConeShape( coneRadius,coneHeight )
   conePhysicsShape.setMargin(margin)   //ขอบวัตถุ
-  pos.set( THREE.Math.randInt(-10,10), 0, -100 )   //กำหนดตำแหน่ง
-  quat.set( THREE.Math.randInt(-10,10), 0, 0, THREE.Math.randInt(-10,10) )   //กำหนดการหมุน
+  pos.set( THREE.Math.randInt(-10,10), THREE.Math.randInt(-10,10), -100 )   //กำหนดตำแหน่ง
+  quat.set( THREE.Math.randInt(-10,10), 0, THREE.Math.randInt(-10,10), THREE.Math.randInt(-10,10) )   //กำหนดการหมุน
   createRigidBody( coneMesh, conePhysicsShape, coneMass, pos, quat )
   boxes.push(coneMesh)
 }
@@ -296,7 +296,7 @@ function onDocumentMouseDown(event){
     // Creates a ball
     let ballMass = 100
     let ballRadius = 0.4
-    let ball = new THREE.Mesh( new THREE.SphereBufferGeometry( ballRadius, 20, 20 ), new THREE.MeshPhongMaterial( { color: 0x24d770 } ) )
+    let ball = new THREE.Mesh( new THREE.SphereBufferGeometry( ballRadius, 20, 20 ), new THREE.MeshPhongMaterial( { color: 0x111111 } ) )
     ball.castShadow = true
     ball.receiveShadow = true
     ball.name = "ball"+ballnum

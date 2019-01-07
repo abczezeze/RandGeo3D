@@ -6,7 +6,7 @@
 			<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 			<link rel="stylesheet" href="index.css">
 		</head>
-		<body>
+		<body onload="goFunction()">
 			<div id="container"></div>
 			<div id="coucik"></div>
 			<div id="lobj"></div>
@@ -21,7 +21,7 @@
 				<a class="google-plus" href="https://plus.google.com/share?url=https://abc3dz.github.io/RandGeo/" onclick="window.open(this.href, 'google-plus-share', 'width=500,height=300');return false;">g+</a>
 			</div>
 			<div id="creditlg" class="hide"><img src="img/logo.png"></div>
-			<div id="loadwait">please wait</div>
+			<p id="loadwait">please wait</p>
 			<script src="js/three.js"></script>
 			<script src="js/OrbitControls.js"></script>
 			<script src="js/ammo.js"></script>
@@ -42,9 +42,10 @@
 			    elem.msRequestFullscreen();
 			  }
 			}
-			document.getElementById("loadwait").addEventListener("load", goFunction);
 			function goFunction(){
-				document.getElementById("loadwait").innerHTML = "Go!";
+				goComp = document.getElementById("loadwait")
+				goComp.style.color = "#990000"
+				goComp.innerHTML = "Go go go";
 			}
 
 			</script>
