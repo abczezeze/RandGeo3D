@@ -56,6 +56,7 @@ body{
 /*a basic loading screen from Mugen87*/
 #loadwait{
 	content: "";
+	color: #fffff0;
 	position: absolute;
 	top: 50vh;
 	left: 42vw;

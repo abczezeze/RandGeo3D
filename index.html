@@ -42,6 +42,10 @@
 			    elem.msRequestFullscreen();
 			  }
 			}
+			document.getElementById("loadwait").addEventListener("load", goFunction);
+			function goFunction(){
+				document.getElementById("loadwait").innerHTML = "Go!";
+			}
 
 			</script>
 		</body>
