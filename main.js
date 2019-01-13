@@ -5,6 +5,7 @@ var clock = new THREE.Clock()
 var ball,fa01
 var mouseMesh
 var ambientLight
+var rb88 = new THREE.Object3D();
 // Physics variables
 var gravityConstant = -9.8
 var collisionConfiguration
@@ -69,13 +70,7 @@ function initGraphics() {
   camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 )
   camera.position.set(0,0,5)
   camera.lookAt(scene.position)
-  /*controls = new THREE.OrbitControls( camera )
-  controls.target.set( 0, 2, 0 )
-  controls.maxDistance = 14
-  controls.enablePan = false
-  controls.enableRotate = false
-  controls.maxPolarAngle = 1.4
-  controls.autoRotate = true*/
+
   renderer = new THREE.WebGLRenderer({antialias:true,alpha:true})
   renderer.setPixelRatio( window.devicePixelRatio )
   renderer.setSize( window.innerWidth, window.innerHeight )
@@ -134,30 +129,86 @@ function initPhysics() {
   physicsWorld = new Ammo.btDiscreteDynamicsWorld( dispatcher, broadphase, solver, collisionConfiguration )
   physicsWorld.setGravity( new Ammo.btVector3( 0, 0, -gravityConstant ) )
 }
-//class
-/*var Roboto88 = function(){
-  this.mesh = new THREE.object3D()
-  this.mesh.name = "roboto88"
-  //head
-  var headGeo = new THREE.IcosahedronGeometry(0.5,0)
-  var headMat = new THREE.MeshLambertMaterial( {color:0x3300aa, wireframe:true})
-  var headMesh = new THREE.Mesh(headGeo,headMat)
-  headMesh.position.set(0,1,0)
-  this.mesh.add(headMesh)
-  //body
-  var bodyGeometry = new THREE.CubeGeometry(2,2,2,1,1,1)
-	var bodyMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe:true} )
-	bodyMesh = new THREE.Mesh( bodyGeometry, bodyMaterial )
-	bodyMesh.position.set(0, 0, 0)
-  this.mesh.add(bodyMesh)
-}*/
+
 //3D models
 function createObjects() {
-  var bodyGeometry = new THREE.CubeGeometry(1,1,1)
+  var bodyGeometry = new THREE.CubeGeometry(10,15,10)
   var bodyMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe:true} )
   mouseMesh = new THREE.Mesh( bodyGeometry, bodyMaterial )
-  mouseMesh.position.z = -5
+  mouseMesh.visible = false;
+  mouseMesh.position.z = 0
 	scene.add( mouseMesh )
+
+  //หัว
+  var headGeo = new THREE.IcosahedronGeometry(0.5,0);
+  var headMat = new THREE.MeshLambertMaterial( {color:0x3300aa,wireframe:true});
+  var headMesh = new THREE.Mesh(headGeo,headMat);
+  headMesh.position.y=1;
+  headMesh.position.x=0;
+  rb88.add(headMesh);
+  //คอ
+  var neckGeo = new THREE.CylinderGeometry(0.5,1.2,0.2);
+  var neckMat = new THREE.MeshLambertMaterial( {color:0x003300,wireframe:true});
+  var neckMesh = new THREE.Mesh(neckGeo,neckMat);
+  neckMesh.position.y=0.6;
+  neckMesh.position.x=0;
+  rb88.add(neckMesh);
+  //ลำตัว
+  var bodyGeo = new THREE.BoxGeometry(1,1.5,1);
+  var bodyMat = new THREE.MeshLambertMaterial( {color:0x00aa22,wireframe:true});
+  var bodyMesh = new THREE.Mesh(bodyGeo,bodyMat);
+  bodyMesh.position.set(0,-0.2,0);
+  rb88.add(bodyMesh);
+  //แขนขวา
+  var armRGeo = new THREE.CylinderGeometry(0.09,0.2,1);
+  var armRMat = new THREE.MeshLambertMaterial( {color:0xaa2200,wireframe:true});
+  var armRMesh = new THREE.Mesh( armRGeo, armRMat );
+  armRMesh.position.set(-0.66,-0,0);
+  rb88.add(armRMesh);
+  //แขนซ้าย
+  var armLGeo = new THREE.CylinderGeometry(0.09,0.2,1);
+  var armLMat = new THREE.MeshLambertMaterial( {color:0xaa2200,wireframe:true});
+  var armLMesh = new THREE.Mesh( armLGeo, armLMat );
+  armLMesh.position.set(0.66,0,0);
+  rb88.add(armLMesh);
+  //มือขวา
+  var handRGeo = new THREE.SphereGeometry(0.2,32,32);
+  var handRMat = new THREE.MeshLambertMaterial( {color:0x222255,wireframe:true});
+  var handRMesh = new THREE.Mesh( handRGeo, handRMat );
+  handRMesh.position.set(-0.66,-0.66,0);
+  rb88.add(handRMesh);
+  //มือซ้าย
+  var handLGeo = new THREE.SphereGeometry(0.2,32,32);
+  var handLMat = new THREE.MeshLambertMaterial( {color:0x222255,wireframe:true});
+  var handLMesh = new THREE.Mesh( handLGeo, handLMat );
+  handLMesh.position.set(0.66,-0.66,0);
+  handLMesh.rotation.x = 2.8;
+  rb88.add(handLMesh);
+  //ขาขวา
+  var legRGeo = new THREE.CylinderGeometry(0.2,0.09,2);
+  var legRMat = new THREE.MeshLambertMaterial( {color:0xaa2200,wireframe:true});
+  var legRMesh = new THREE.Mesh( legRGeo, legRMat );
+  legRMesh.position.set(-0.3,-1,0);
+  rb88.add(legRMesh);
+  //ขาซ้าย
+  var legLGeo = new THREE.CylinderGeometry(0.2,0.09,2);
+  var legLMat = new THREE.MeshLambertMaterial( {color:0xaa2200,wireframe:true});
+  var legLMesh = new THREE.Mesh( legLGeo, legLMat );
+  legLMesh.position.set(0.3,-1,0);
+  rb88.add(legLMesh);
+  //เท้าขวา
+  var footRGeo = new THREE.BoxGeometry(0.2,0.2,0.5);
+  var footRMat = new THREE.MeshLambertMaterial( {color:0x222255,wireframe:true});
+  var footRMesh = new THREE.Mesh( footRGeo, footRMat );
+  footRMesh.position.set(-0.3,-1.99,0.11);
+  rb88.add(footRMesh);
+  //เท้าซ้าย
+  var footLGeo = new THREE.BoxGeometry(0.2,0.2,0.5);
+  var footLMat = new THREE.MeshLambertMaterial( {color:0x222255,wireframe:true});
+  var footLMesh = new THREE.Mesh( footLGeo, footLMat );
+  footLMesh.position.set(0.3,-1.99,0.11);
+  rb88.add(footLMesh);
+  scene.add(rb88);
 }
 
 function createBox(){
@@ -277,7 +328,8 @@ function onDocumentMousemove(event){
   var dir = vector.sub( camera.position ).normalize();
   var distance = - camera.position.z / dir.z;
   var wpos = camera.position.clone().add( dir.multiplyScalar( distance ) );
-  mouseMesh.position.copy(wpos);
+  //mouseMesh.position.copy(wpos);
+  rb88.position.copy(wpos);
 }
 //กรณีการจิ้มในมือถือเรียกใช้ฟังก์ชั่นคลิกในคอมพิวเตอร์
 
