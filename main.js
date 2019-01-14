@@ -6,6 +6,8 @@ var ball,fa01
 var mouseMesh
 var ambientLight
 var rb88 = new THREE.Object3D();
+var listener = new THREE.AudioListener();
+
 // Physics variables
 var gravityConstant = -9.8
 var collisionConfiguration
@@ -95,7 +97,7 @@ function initGraphics() {
   light.shadow.mapSize.y = 1024
   scene.add( light )
   //sound
-  var listener = new THREE.AudioListener();
+
   camera.add( listener );
   var sound = new THREE.Audio( listener );
   var audioLoader = new THREE.AudioLoader();
@@ -105,6 +107,7 @@ function initGraphics() {
 	    sound.setVolume( 0.3 );
 	    sound.play();
   });
+
   //html-css
   coucik = document.getElementById("coucik")
   coucik.style.position = 'absolute'
@@ -132,13 +135,13 @@ function initPhysics() {
 
 //3D models
 function createObjects() {
+  //ซ่อน
   var bodyGeometry = new THREE.CubeGeometry(10,15,10)
   var bodyMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe:true} )
   mouseMesh = new THREE.Mesh( bodyGeometry, bodyMaterial )
   mouseMesh.visible = false;
   mouseMesh.position.z = 0
 	scene.add( mouseMesh )
-
   //หัว
   var headGeo = new THREE.IcosahedronGeometry(0.5,0);
   var headMat = new THREE.MeshLambertMaterial( {color:0x3300aa,wireframe:true});
@@ -366,6 +369,16 @@ function onDocumentMouseDown(event){
   if (intersects.length>0) {
     clickcount++
   }
+
+  var audio = new THREE.Audio( listener );
+  ball.add( audio );
+  var shootsound = new THREE.AudioLoader();
+  shootsound.load( 'sound/shootsound.mp3', function( buffer ) {
+	    audio.setBuffer( buffer );
+	    audio.setLoop( false );
+	    audio.setVolume( 0.9 );
+      audio.play();
+  });
   /*cans.forEach(
     (element, index, array) =>
     console.log(element, index, array)
@@ -429,17 +442,17 @@ function updatePhysics( deltaTime ) {
   if(randCreate==1){
     createBox()
     coucik.style.color = '#990000'
-    mouseMesh.material.color.setHex( 0xaa0000 );
+    //mouseMesh.material.color.setHex( 0xaa0000 );
   }
   if(clickcount>=20&&randCreate==10){
     createCan()
     coucik.style.color = '#00bb00'
-    mouseMesh.material.color.setHex( 0x00bb00 );
+    //mouseMesh.material.color.setHex( 0x00bb00 );
   }
   if(clickcount>=50&&randCreate==-10){
     createCone()
     coucik.style.color = '#0000ff'
-    mouseMesh.material.color.setHex( 0x0000ff );
+    //mouseMesh.material.color.setHex( 0x0000ff );
   }
   for (var vertexIndex = 0; vertexIndex < mouseMesh.geometry.vertices.length; vertexIndex++)
 	{
@@ -460,8 +473,9 @@ function updatePhysics( deltaTime ) {
   var ballintersects = raycaster.intersectObjects(ballshooter)
   if(ballintersects.length>0){
     if(ballintersects[0].object.position.z>10)scene.remove(ballintersects[0].object)
-    console.log(ballintersects[0].object.name);
-    console.log(ballintersects[0].object.position);
+    //console.log(ballintersects[0].object.name);
+    //console.log(ballintersects[0].object.position);
+    console.log(ballintersects[0].object.name,' remove');
   }
 
   //พิมพ์ค่าจำนวนที่ได้นับไว้บนหน้าเว็บ
