@@ -175,13 +175,13 @@ function createObjects() {
   armLMesh.position.set(0.66,0,0);
   rb88.add(armLMesh);
   //มือขวา
-  var handRGeo = new THREE.SphereGeometry(0.2,32,32);
+  var handRGeo = new THREE.SphereGeometry(0.2,8,8);
   var handRMat = new THREE.MeshLambertMaterial( {color:0x222255,wireframe:true});
   var handRMesh = new THREE.Mesh( handRGeo, handRMat );
   handRMesh.position.set(-0.66,-0.66,0);
   rb88.add(handRMesh);
   //มือซ้าย
-  var handLGeo = new THREE.SphereGeometry(0.2,32,32);
+  var handLGeo = new THREE.SphereGeometry(0.2,8,8);
   var handLMat = new THREE.MeshLambertMaterial( {color:0x222255,wireframe:true});
   var handLMesh = new THREE.Mesh( handLGeo, handLMat );
   handLMesh.position.set(0.66,-0.66,0);
