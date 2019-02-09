@@ -1,0 +1,19 @@
+{
+  "name": "RandGeo",
+  "short_name": "RandGeo",
+  "description": "RandGeo is simple game #threejs.",
+  "display": "fullscreen",
+  "start_url": "/index.html",
+  "background_color": "#000003",
+  "theme_color": "#0f4a73",
+  "icons": [{
+    "src": "Screenshot192.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },
+  {
+    "src": "Screenshot512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }]
+}
