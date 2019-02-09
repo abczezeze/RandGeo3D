@@ -60,26 +60,26 @@ body{
 	position: absolute;
 	top: 50vh;
 	left: 50vw;
-	margin-left:-367px;
-  margin-top:-247px;
-	width:735px;
+	margin-left:-163px;
+  margin-top:-200px;
+	width:335px;
   height:494px;
-	border-radius: 80%;
-	border: 3px solid transparent;
-	border-top-color: #BA55D3;
+	/* border-radius: 80%; */
+	/* border: 3px solid transparent; */
+	/* border-top-color: #BA55D3; */
 	-webkit-animation: spin 3s linear infinite;
 	animation: spin 5s linear infinite;
 }
 @-webkit-keyframes spin {
     0%   {
-        -webkit-transform: rotate(0deg);
-        -ms-transform: rotate(0deg);
-        transform: rotate(0deg);
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
     }
     100% {
-        -webkit-transform: rotate(360deg);
-        -ms-transform: rotate(360deg);
-        transform: rotate(360deg);
+        -webkit-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+        transform: scale(1.1);
     }
 }
 
