@@ -29,33 +29,32 @@ var ballshooter = []
 //initInput
 var mouseCoords = new THREE.Vector2()
 var raycaster = new THREE.Raycaster()
-var clickRequest=false
 var boxes = []
 var clickcount=0
 var intersects
-var startButton = document.getElementById('start-button')
-startButton.addEventListener('click',init)
-var crButton = document.getElementById('credit-button')
-crButton.addEventListener('click',showCredit)
-var crlg = document.getElementById('creditlg')
-
-creditlg.addEventListener('click',hideCredit)
-function showCredit(){
-  creditlg.style.display = 'block'
-}
-function hideCredit(){
-  creditlg.style.display = 'none'
-}
+// var startButton = document.getElementById('start-button')
+// startButton.addEventListener('click',init)
+// var crButton = document.getElementById('credit-button')
+// crButton.addEventListener('click',showCredit)
+// var crlg = document.getElementById('creditlg')
+//
+// creditlg.addEventListener('click',hideCredit)
+// function showCredit(){
+//   creditlg.style.display = 'block'
+// }
+// function hideCredit(){
+//   creditlg.style.display = 'none'
+// }
 // - Main code -
-//init()
+init()
 animate()
 // - Functions -
 //เรียกใข้ฟังก์ชั่นที่จะดำเนินการ
 function init() {
-  var title = document.getElementById('title')
-  title.remove()
-  var loadwait = document.getElementById('loadwait')
-  loadwait.remove()
+  // var title = document.getElementById('title')
+  // title.remove()
+  // var loadwait = document.getElementById('loadwait')
+  // loadwait.remove()
   initGraphics()
   initPhysics()
   createObjects()
@@ -420,7 +419,6 @@ function render() {
 var originPoint = mouseMesh.position.clone()
 
 function updatePhysics( deltaTime ) {
-
   physicsWorld.stepSimulation( deltaTime, 50 )
 
   // Update rigid bodies วัตถุเมื่อใส่ฟิสิกส์มีการเคลื่อนไหวตลอดจึงสร้างฟังก์ชั่นนี้
