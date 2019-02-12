@@ -1,5 +1,5 @@
 # RandGeo
-Demo: https://abc3dz.github.io/RandGeo/
+Demo: https://abc3dz.github.io/RandGeo/ or https://abc3dz.itch.io/randgeo-3d
 <br>score 1-19 add cube geometric
 <br>score 20-49 add cylinder geometric
 <br>score 50up add cone geometric
