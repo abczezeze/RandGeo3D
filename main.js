@@ -46,6 +46,15 @@ var intersects
 //   creditlg.style.display = 'none'
 // }
 // - Main code -
+function getDB(){
+
+}
+window.onload=function(){
+  var firebaseRef=firebase.database().ref("User0")
+  firebaseRef.once('value').then(function(dataSnapshot){
+    console.log(dataSnapshot.val());
+  });
+}
 init()
 animate()
 // - Functions -
@@ -108,16 +117,33 @@ function initGraphics() {
   });
 
   //html-css
-  coucik = document.getElementById("coucik")
-  coucik.style.position = 'absolute'
-  coucik.style.bottom = '55px'
-  coucik.style.textAlign = 'left'
-  coucik.style.color = '#990000'
   lobj = document.getElementById("lobj")
   lobj.style.position = 'absolute'
   lobj.style.bottom = '70px'
   lobj.style.textAlign = 'left'
   lobj.style.color = '#9900ff'
+  coucik = document.getElementById("coucik")
+  coucik.style.position = 'absolute'
+  coucik.style.bottom = '55px'
+  coucik.style.textAlign = 'left'
+  coucik.style.color = '#990000'
+  getip = document.getElementById("getip")
+  getip.style.position = 'absolute'
+  getip.style.bottom = '35px'
+  getip.style.textAlign = 'left'
+  getip.style.color = '#009900'
+  country = document.getElementById("country")
+  country.style.position = 'absolute'
+  country.style.bottom = '20px'
+  country.style.textAlign = 'left'
+  country.style.color = '#000066'
+
+  $.get('https://ipinfo.io/json', function(data) {
+    console.log(JSON.stringify(data, null, 2));
+      getip.innerText = "PlayerIP: "+data.ip
+      //country.innerText = "Country: "+data.country
+      $("#country").html("Country: "+data.country)
+  });
 
   window.addEventListener( 'resize', onWindowResize, false )
 }
