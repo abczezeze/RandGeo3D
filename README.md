@@ -11,3 +11,9 @@ experiment:
 <br><img src="https://github.com/abc3dz/RandGeo/blob/master/img/lighthouse73.png" width="30%" height="30%">
 <br>Player can add this game to an application on mobile by Add to Home screen **Chrome
 <br><a href="https://zrandgeo.firebaseapp.com/">firebase</a>
+<br>method
+<br>1. Use the chrome app on mobile
+<br>2. Access the website zrandgeo.firebaseapp
+<br>3. Press 3 points (top right menu), select Add to Home screen
+<br>4. Press ADD, then this web game Will become a smartphone app
+<br>5. Press the app to start playing the game to fill the smartphone screen. Like general apps
