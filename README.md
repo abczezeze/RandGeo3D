@@ -6,7 +6,7 @@
 <br>
 experiment:
 <br>-create webgame to PWA(app on mobile)
-<br>-convert to .apk and linux app by AppMaker.xyz upload on <a href="https://abc3dz.itch.io/randgeo-3d">itch</a>
+<br>-convert to .apk by AppMaker.xyz upload on <a href="https://abc3dz.itch.io/randgeo-3d">itch</a>
 <br><img src="https://github.com/abc3dz/RandGeo/blob/master/img/lighthouse%20mobile.png" width="30%" height="30%">
 <br><img src="https://github.com/abc3dz/RandGeo/blob/master/img/lighthouse73.png" width="30%" height="30%">
 <br>Player can add this game to an application on mobile by Add to Home screen **Chrome
