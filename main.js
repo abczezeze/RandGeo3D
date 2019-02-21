@@ -32,6 +32,12 @@ var raycaster = new THREE.Raycaster()
 var boxes = []
 var clickcount=0
 var intersects
+
+//DataFirebase
+var ipaddress = "10.0.0.1"
+var gamescore = 0
+var gametime = 0
+
 // var startButton = document.getElementById('start-button')
 // startButton.addEventListener('click',init)
 // var crButton = document.getElementById('credit-button')
@@ -46,15 +52,7 @@ var intersects
 //   creditlg.style.display = 'none'
 // }
 // - Main code -
-function getDB(){
 
-}
-window.onload=function(){
-  var firebaseRef=firebase.database().ref("User0")
-  firebaseRef.once('value').then(function(dataSnapshot){
-    console.log(dataSnapshot.val());
-  });
-}
 init()
 animate()
 // - Functions -
@@ -138,13 +136,15 @@ function initGraphics() {
   country.style.textAlign = 'left'
   country.style.color = '#000066'
 
-  $.get('https://ipinfo.io/json', function(data) {
-    console.log(JSON.stringify(data, null, 2));
+  $.getJSON('https://ipapi.co/json/', function(data) {
+    // console.log(JSON.stringify(data, null, 2));
       getip.innerText = "PlayerIP: "+data.ip
       //country.innerText = "Country: "+data.country
-      $("#country").html("Country: "+data.country)
+      $("#country").html("Country: "+data.country_name)
+      ipaddress = data.ip
+      // console.log('ip:',ipaddress);
   });
-
+  // console.log(ipaddress);
   window.addEventListener( 'resize', onWindowResize, false )
 }
 
@@ -438,6 +438,7 @@ function render() {
   effcutout.render(scene, camera)
   //พิมพ์วินาทีบนหน้าเว็บ
   time += deltaTime
+  gametime = time
   lobj.innerText = "time: "+time.toFixed( 2 )
   //console.log("time="+time)
 }
@@ -504,5 +505,36 @@ function updatePhysics( deltaTime ) {
 
   //พิมพ์ค่าจำนวนที่ได้นับไว้บนหน้าเว็บ
   coucik.innerText = "Score: "+clickcount
-  //console.log('click',clickcount);
+  gamescore = clickcount
+  // console.log('cc',gamescore,'tt',gametime,'ip',ipaddress);
+  // if(clickcount==5){
+  //   insertDB(gametime,ipaddress,gamescore)
+  //   console.log('Insert SS');
+  //   }
 }
+window.onload=function(){
+  showDB();
+}
+function showDB(){
+  var firebaseRef=firebase.database().ref("User0")
+  firebaseRef.once('value').then(function(dataSnapshot){
+    console.log(dataSnapshot.val());
+  })
+}
+
+// function insertDB(time,ip,score){
+//   var firebaseRef=firebase.database().ref("User0")
+//   firebaseRef.push({
+//     Dt:time,
+//     Ip:ip,
+//     Sd2:score
+//   })
+// }
+// function delDB(time,ip,score){
+//   var firebaseRef=firebase.database().ref("User0")
+//   firebaseRef.remove().then(function(){
+//     console.log("Remove SS");
+//   }).catch(function(error){
+//   console.log('remove error',error.message);
+//   })
+// }
