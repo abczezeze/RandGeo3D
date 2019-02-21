@@ -16,3 +16,5 @@ experiment:
 <br>3. Press 3 points (top right menu), select Add to Home screen
 <br>4. Press ADD, then this web game Will become a smartphone app
 <br>5. Press the app to start playing the game to fill the smartphone screen. Like general apps
+<br>
+<br>Demo GitHub: https://abc3dz.github.io/RandGeo3D/
