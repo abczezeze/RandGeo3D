@@ -9,7 +9,7 @@ experiment:
 <br>-convert to .apk by AppMaker.xyz upload on <a href="https://abc3dz.itch.io/randgeo-3d">itch</a>
 <br><img src="https://github.com/abc3dz/RandGeo/blob/master/img/lighthouse%20mobile.png" width="30%" height="30%">
 <br><img src="https://github.com/abc3dz/RandGeo/blob/master/img/lighthouse73.png" width="30%" height="30%">
-<br>Player can add this game to an application on mobile by Add to Home screen **Chrome **firebase
+<br>Player can add this game to an application on mobile by Add to Home screen **Chrome
 <br>method
 <br>1. Use the chrome app on mobile
 <br>2. Access the website <a href="https://zrandgeo.firebaseapp.com/">zrandgeo.firebaseapp</a>
