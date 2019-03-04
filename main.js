@@ -119,7 +119,7 @@ function initGraphics() {
 	    sound.setBuffer( buffer );
 	    sound.setLoop( true );
 	    sound.setVolume( 0.3 );
-	    // sound.play();
+	    sound.play();
   });
 
   //html-css
@@ -154,7 +154,7 @@ function initGraphics() {
   divdialog = document.createElement("div")
 
   var btn = document.createElement("button");
-  btn.innerHTML = "Stop game";
+  btn.innerHTML = "Stop Game";
   btn.setAttribute('title','Stop Game & Record data')
   btn.setAttribute('class','button')
   btn.setAttribute('id','opener')
@@ -171,9 +171,10 @@ function initGraphics() {
   document.body.appendChild(btn);
   console.log(btn.style)
   let linkbtn = document.createElement("a");
-  linkbtn.innerHTML = "Top chart";
+  linkbtn.innerHTML = "Top Charts";
   linkbtn.setAttribute('href','./indexdb.html')
   linkbtn.setAttribute('class','linkbtn')
+  linkbtn.setAttribute('target','_blank')
   document.body.appendChild(linkbtn);
   // console.log(linkbtn)
 
@@ -287,9 +288,6 @@ function createBox(){
   let boxY = 1+ Math.random() * 5
   let boxZ = 1+ Math.random() * 5
   let boxMass = 1
-//   let arrayTexture = ['tt/mcManisFs_nm.png','tt/mcMuaFS_nm.png','tt/mcMonChok_nm.png'
-// ,'tt/fm_jaja_nm.png','tt/fm_jina_nm.png','tt/fm_mama_nm.png','tt/fm_moya_nm.png'
-// ,'tt/MrA_nm.png','tt/MrB_nm.png','tt/MrC_nm.png']
   let arrayTexture = ['tt/mcManisFs_nm.png','tt/mcMuaFS_nm.png','tt/mcMonChok_nm.png']
   let randIndex = THREE.Math.randInt(0,arrayTexture.length-1)
   //console.log('randIndex=',randIndex);
