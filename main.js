@@ -154,16 +154,22 @@ function initGraphics() {
   divdialog = document.createElement("div")
 
   var btn = document.createElement("button");
-  btn.innerHTML = "Stop Game";
-  btn.setAttribute('title','Stop Game & Record data')
+  btn.innerHTML = "Record Score";
+  btn.setAttribute('title','Record & Reset a score')
   btn.setAttribute('class','button')
   btn.setAttribute('id','opener')
   btn.onclick = function(){
     alert('Thank you for playing');
-    showDBfirewok();
-    //console.log('Sc:',gamescore,'Ti:',gametime,'Na:',playerName,'Cou:',playerCoutry);
+    // console.log('111 Sc:',gamescore,'Ti:',gametime,'Na:',playerName,'Cou:',playerCoutry);
+    clickcount=0
+    time=0
+    gamescore=0
+    gametime=0
+    // showDBfirewok();
+    // console.log('2222 Sc:',gamescore,'Ti:',gametime,'Na:',playerName,'Cou:',playerCoutry);
     addData(playerName,playerCoutry,gamescore,gametime)
     //return false;
+    
   };
   btn.onmouseover = function()  {
       this.style.backgroundColor = "blue";
