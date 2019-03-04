@@ -2,7 +2,7 @@ var container
 var camera, controls, scene, renderer
 var textureLoader
 var clock = new THREE.Clock()
-var ball,fa01
+var ballMesh
 var mouseMesh
 var ambientLight
 var rb88 = new THREE.Object3D();
@@ -23,36 +23,25 @@ var raycal = new THREE.Vector3()
 var pos = new THREE.Vector3()
 var quat = new THREE.Quaternion()
 var time = 0
-var ballnum=0
+var ballnum = 0
 var ballshooter = []
+var boxnum = 0
 
 //initInput
 var mouseCoords = new THREE.Vector2()
 var raycaster = new THREE.Raycaster()
 var boxes = []
 var clickcount=0
-var intersects
-
+var intersects,intersectscans
 //DataFirebase
-var ipaddress = "10.0.0.1"
+var playerName = "Rg"
+var playerCoutry = "What"
 var gamescore = 0
 var gametime = 0
+//Html
+var htmlTime, htmlScore, htmlPlayer, htmlCountry
 
-// var startButton = document.getElementById('start-button')
-// startButton.addEventListener('click',init)
-// var crButton = document.getElementById('credit-button')
-// crButton.addEventListener('click',showCredit)
-// var crlg = document.getElementById('creditlg')
-//
-// creditlg.addEventListener('click',hideCredit)
-// function showCredit(){
-//   creditlg.style.display = 'block'
-// }
-// function hideCredit(){
-//   creditlg.style.display = 'none'
-// }
 // - Main code -
-
 init()
 animate()
 // - Functions -
@@ -60,8 +49,10 @@ animate()
 function init() {
   // var title = document.getElementById('title')
   // title.remove()
-  // var loadwait = document.getElementById('loadwait')
-  // loadwait.remove()
+  var loadwait = document.getElementById('loadwait')
+  loadwait.remove()
+  let creditlg = document.getElementById('creditlg')
+  creditlg.remove()
   initGraphics()
   initPhysics()
   createObjects()
@@ -76,16 +67,33 @@ function initGraphics() {
       .load( [ 'left.png', 'right.png', 'top.png', 'bottom.png', 'front.png', 'back.png' ] );
 
   camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 )
-  camera.position.set(0,0,5)
+  camera.position.set(0,0,6)
   camera.lookAt(scene.position)
 
   renderer = new THREE.WebGLRenderer({antialias:true,alpha:true})
   renderer.setPixelRatio( window.devicePixelRatio )
   renderer.setSize( window.innerWidth, window.innerHeight )
   renderer.shadowMap.enabled = true
-  effcutout = new THREE.OutlineEffect(renderer)
+
   container = document.getElementById( 'container' )
   container.appendChild(renderer.domElement);
+  console.log(container)
+  //ถ้าจะเคลื่อนที่ไปตามมือที่จิ้มบนมือถือใช้นี้ไม่ได้
+  // controls = new THREE.OrbitControls(camera, renderer.domElement);
+  // // controls.enableKeys = false
+  // // controls.enableRotate = false
+  // controls.enableZoom = false
+  // // Math.PI/2
+  // controls.maxAzimuthAngle=0.5
+  // controls.minAzimuthAngle=-0.5
+  // controls.maxDistance=6
+  // controls.minDistance=0
+  // // controls.maxPolarAngle=1
+  // // controls.minPolarAngle=-1
+  // // controls.maxZoom=3
+  // // controls.minZoom=1
+  // controls.rotateSpeed=0.1
+  // // controls.zoomSpeed=1
 
   ambientLight = new THREE.AmbientLight( 0x404040 )
   scene.add( ambientLight )
@@ -102,8 +110,8 @@ function initGraphics() {
   light.shadow.mapSize.x = 1024
   light.shadow.mapSize.y = 1024
   scene.add( light )
-  //sound
 
+  //sound
   camera.add( listener );
   var sound = new THREE.Audio( listener );
   var audioLoader = new THREE.AudioLoader();
@@ -111,40 +119,74 @@ function initGraphics() {
 	    sound.setBuffer( buffer );
 	    sound.setLoop( true );
 	    sound.setVolume( 0.3 );
-	    sound.play();
+	    // sound.play();
   });
 
   //html-css
-  lobj = document.getElementById("lobj")
-  lobj.style.position = 'absolute'
-  lobj.style.bottom = '70px'
-  lobj.style.textAlign = 'left'
-  lobj.style.color = '#9900ff'
-  coucik = document.getElementById("coucik")
-  coucik.style.position = 'absolute'
-  coucik.style.bottom = '55px'
-  coucik.style.textAlign = 'left'
-  coucik.style.color = '#990000'
-  getip = document.getElementById("getip")
-  getip.style.position = 'absolute'
-  getip.style.bottom = '35px'
-  getip.style.textAlign = 'left'
-  getip.style.color = '#009900'
-  country = document.getElementById("country")
-  country.style.position = 'absolute'
-  country.style.bottom = '20px'
-  country.style.textAlign = 'left'
-  country.style.color = '#000066'
+  htmlTime = document.createElement("htmlTime")
+  htmlTime.style.position = 'absolute'
+  htmlTime.style.top = '20px'
+  htmlTime.style.textAlign = 'left'
+  htmlTime.style.color = '#ff90fc'
+  document.body.appendChild(htmlTime);  
+
+  htmlScore = document.createElement("htmlScore")
+  htmlScore.style.position = 'absolute'
+  htmlScore.style.top = '40px'
+  htmlScore.style.textAlign = 'left'
+  htmlScore.style.color = '#990000'
+  document.body.appendChild(htmlScore);
+
+  htmlPlayer = document.createElement("htmlPlayer")
+  htmlPlayer.style.position = 'absolute'
+  htmlPlayer.style.top = '60px'
+  htmlPlayer.style.textAlign = 'left'
+  htmlPlayer.style.color = '#00ee00'
+  document.body.appendChild(htmlPlayer);
+
+  htmlCountry = document.createElement("htmlCountry")
+  htmlCountry.style.position = 'absolute'
+  htmlCountry.style.top = '80px'
+  htmlCountry.style.textAlign = 'left'
+  htmlCountry.style.color = '#000066'
+  document.body.appendChild(htmlCountry);
+
+  divdialog = document.createElement("div")
+
+  var btn = document.createElement("button");
+  btn.innerHTML = "Stop game";
+  btn.setAttribute('title','Stop Game & Record data')
+  btn.setAttribute('class','button')
+  btn.setAttribute('id','opener')
+  btn.onclick = function(){
+    alert('Thank you for playing');
+    showDBfirewok();
+    //console.log('Sc:',gamescore,'Ti:',gametime,'Na:',playerName,'Cou:',playerCoutry);
+    //addData(playerName,playerCoutry,gamescore,gametime)
+    //return false;
+  };
+  // btn.onmouseover = function()  {
+  //     this.style.backgroundColor = "blue";
+  // }  
+  document.body.appendChild(btn);
+  console.log(btn.style)
+  let linkbtn = document.createElement("a");
+  linkbtn.innerHTML = "Top chart";
+  linkbtn.setAttribute('href','./indexdb.html')
+  linkbtn.setAttribute('class','linkbtn')
+  document.body.appendChild(linkbtn);
+  // console.log(linkbtn)
 
   $.getJSON('https://ipapi.co/json/', function(data) {
     // console.log(JSON.stringify(data, null, 2));
-      getip.innerText = "PlayerIP: "+data.ip
-      //country.innerText = "Country: "+data.country
-      $("#country").html("Country: "+data.country_name)
-      ipaddress = data.ip
-      // console.log('ip:',ipaddress);
+      // getip.innerText = "PlayerIP: "+data.ip
+      playerName = data.ip
+      htmlPlayer.innerText = "Player: "+playerName
+
+      playerCoutry = data.country_name
+      htmlCountry.innerText = "Country: "+playerCoutry
+      // console.log('cou:',playerCoutry);
   });
-  // console.log(ipaddress);
   window.addEventListener( 'resize', onWindowResize, false )
 }
 
@@ -161,11 +203,12 @@ function initPhysics() {
 //3D models
 function createObjects() {
   //ซ่อน
-  var bodyGeometry = new THREE.CubeGeometry(10,15,10)
-  var bodyMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe:true} )
+  var bodyGeometry = new THREE.PlaneGeometry(2,3)
+  var bodyMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000,transparent:true,opacity:0.3} )
   mouseMesh = new THREE.Mesh( bodyGeometry, bodyMaterial )
   mouseMesh.visible = false;
-  mouseMesh.position.z = 0
+  mouseMesh.position.z = 1
+  mouseMesh.name = 'PlaneGeom'
 	scene.add( mouseMesh )
   //หัว
   var headGeo = new THREE.IcosahedronGeometry(0.5,0);
@@ -240,19 +283,22 @@ function createObjects() {
 }
 
 function createBox(){
-  let boxX = 1+ Math.random() * 3
-  let boxY = 1+ Math.random() * 3
-  let boxZ = 1+ Math.random() * 3
+  let boxX = 1+ Math.random() * 5
+  let boxY = 1+ Math.random() * 5
+  let boxZ = 1+ Math.random() * 5
   let boxMass = 1
+//   let arrayTexture = ['tt/mcManisFs_nm.png','tt/mcMuaFS_nm.png','tt/mcMonChok_nm.png'
+// ,'tt/fm_jaja_nm.png','tt/fm_jina_nm.png','tt/fm_mama_nm.png','tt/fm_moya_nm.png'
+// ,'tt/MrA_nm.png','tt/MrB_nm.png','tt/MrC_nm.png']
   let arrayTexture = ['tt/mcManisFs_nm.png','tt/mcMuaFS_nm.png','tt/mcMonChok_nm.png']
   let randIndex = THREE.Math.randInt(0,arrayTexture.length-1)
   //console.log('randIndex=',randIndex);
   let boxTexture = new THREE.TextureLoader().load( arrayTexture[randIndex] );
-  let boxMesh = new THREE.Mesh(new THREE.BoxBufferGeometry(boxX,boxY,boxZ,1,1,1),new THREE.MeshPhongMaterial( { color: Math.random()*0xffffff, normalMap: boxTexture} ))
-  //canMesh.geometry.translate(0,0,10)
+  let boxMesh = new THREE.Mesh(new THREE.BoxGeometry(boxX,boxY,boxZ,1,1,1),new THREE.MeshPhongMaterial( { color: Math.random()*0xffffff, normalMap: boxTexture} ))
   boxMesh.castShadow = true
-	boxMesh.receiveShadow = true
-  //canMesh.name = "Can"+numCan++
+  boxMesh.receiveShadow = true
+  boxnum++
+  boxMesh.name = "boxes_"+boxnum
   let boxPS = new Ammo.btBoxShape( new Ammo.btVector3(boxX*0.5,boxY*0.5,boxZ*0.5 ) )
   boxPS.setMargin(margin)
   pos.set( THREE.Math.randInt(-10,10), THREE.Math.randInt(-10,10), -100 )
@@ -260,7 +306,6 @@ function createBox(){
   createRigidBody( boxMesh, boxPS, boxMass, pos, quat )
   boxes.push(boxMesh)
 }
-
 function createCan(){
   let cldRadius = .6+ Math.random() *3
   let cldHeight = 0.8+ Math.random() *3
@@ -279,7 +324,6 @@ function createCan(){
   createRigidBody( cylinderMesh, cylinderPhysicsShape, cldMass, pos, quat )
   boxes.push(cylinderMesh)
 }
-
 function createCone(){
   let coneRadius = 1+ Math.random() *2
   let coneHeight = 2+ Math.random() *2
@@ -297,21 +341,6 @@ function createCone(){
   createRigidBody( coneMesh, conePhysicsShape, coneMass, pos, quat )
   boxes.push(coneMesh)
 }
-
-/*function createSphere(){
-  let sphereRadius = 1 + Math.random() * 2
-  let sphereMass = 1.2
-  let sphereMesh = new THREE.Mesh(new THREE.SphereBufferGeometry( radius, 20, 20 ),new THREE.MeshPhongMaterial( { color:Math.random()*0xffffff} ))
-  sphereMesh.castShadow = true
-  sphereMesh.receiveShadow = true
-  let spherePhysicsShape = Ammo.btSphereShape( sphereRadius )
-  spherePhysicsShape.setMargin(margin)   //ขอบวัตถุ
-  pos.set( THREE.Math.randInt(-10,10), 0, -100 )   //กำหนดตำแหน่ง
-  quat.set( 0, 0, 0, 0)
-  createRigidBody( sphereMesh, spherePhysicsShape, sphereMass, pos, quat )
-  boxes.push(sphereMesh)
-}*/
-
 function createRigidBody( threeObject, physicsShape, mass, pos, quat ) {
   threeObject.position.copy( pos )
   threeObject.quaternion.copy( quat )
@@ -356,48 +385,54 @@ function onDocumentMousemove(event){
   var dir = vector.sub( camera.position ).normalize();
   var distance = - camera.position.z / dir.z;
   var wpos = camera.position.clone().add( dir.multiplyScalar( distance ) );
-  //mouseMesh.position.copy(wpos);
+  mouseMesh.position.copy(wpos);
   rb88.position.copy(wpos);
 }
-//กรณีการจิ้มในมือถือเรียกใช้ฟังก์ชั่นคลิกในคอมพิวเตอร์
-
+//การจิ้มในมือถือเรียกใช้ฟังก์ชั่นคลิกในคอมพิวเตอร์
 function onDocumentMouseDown(event){
   event.preventDefault()
   ballnum++
-  //console.log("ballnum ",ballnum);
+  //console.log("ballnum: ",ballnum);
   mouseCoords.x = (event.clientX/window.innerWidth)*2-1
   mouseCoords.y = -(event.clientY/window.innerHeight)*2+1
   raycaster.setFromCamera(mouseCoords,camera)
-  intersects = raycaster.intersectObjects(scene.children)
-  //intersectscans = raycaster.intersectObjects(boxes)
-  //lo = cans[0].position.y
-  //console.log(intersectscans[0].object.name+"=can.y="+lo)
+  // intersects = raycaster.intersectObjects(scene.children)
+  intersectscans = raycaster.intersectObjects(boxes)
+  // console.log(intersects)
+  // console.log(scene.children)
+  // console.log(mouseCoords)
+  // console.log(camera)
+  // console.log(ballshooter)
+  // console.log(boxes)
+  // console.log(intersectscans)
+  if ( intersectscans.length>0 ){
+    // collisionResults[0].object.material.opacity = 0.5
+    // collisionResults[0].object.material.transparent = true
+    clickcount++
+  }
 
     // Creates a ball
-    let ballMass = 100
+    let ballMass = 1.8
     let ballRadius = 0.4
-    let ball = new THREE.Mesh( new THREE.SphereBufferGeometry( ballRadius, 20, 20 ), new THREE.MeshPhongMaterial( { color: 0x111111 } ) )
-    ball.castShadow = true
-    ball.receiveShadow = true
-    ball.name = "ball"+ballnum
-    ballshooter.push(ball)
+    let ballMesh = new THREE.Mesh( new THREE.SphereGeometry( ballRadius, 8, 8 ), new THREE.MeshPhongMaterial( { color: 0x111111 } ) )
+    ballMesh.castShadow = true
+    ballMesh.receiveShadow = true
+    ballMesh.name = "ball_"+ballnum
+    ballshooter.push(ballMesh)
     let ballShape = new Ammo.btSphereShape( ballRadius )
     ballShape.setMargin( margin )
     pos.copy( raycaster.ray.direction )
     pos.add( raycaster.ray.origin )
     quat.set( 0, 0, 0, 1 )
-    let ballBody = createRigidBody( ball, ballShape, ballMass, pos, quat )
+    let ballBody = createRigidBody( ballMesh, ballShape, ballMass, pos, quat )
     ballBody.setFriction( 0.5 )
     pos.copy( raycaster.ray.direction )
     pos.multiplyScalar( 30 )
     ballBody.setLinearVelocity( new Ammo.btVector3( pos.x, pos.y, pos.z ) )
-  if (intersects.length>0) {
-    clickcount++
-  }
 
-  var audio = new THREE.Audio( listener );
-  ball.add( audio );
-  var shootsound = new THREE.AudioLoader();
+  let audio = new THREE.Audio( listener );
+  ballMesh.add( audio );
+  let shootsound = new THREE.AudioLoader();
   shootsound.load( 'sound/shootsound.mp3', function( buffer ) {
 	    audio.setBuffer( buffer );
 	    audio.setLoop( false );
@@ -412,7 +447,6 @@ function onDocumentMouseDown(event){
   for(let key in ballBody){
     console.log(key, '=>', ballBody[key])
   }*/
-
 }
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight
@@ -430,16 +464,14 @@ function render() {
   var deltaTime = clock.getDelta()
   updatePhysics( deltaTime )
 
-  //renderer.autoClear = false;
-	//renderer.clear();
-  //renderer.render( scene, camera )
-  effcutout.autoClear = false;
-  effcutout.clear();
-  effcutout.render(scene, camera)
+  renderer.autoClear = false;
+	renderer.clear();
+  renderer.render( scene, camera )
+
   //พิมพ์วินาทีบนหน้าเว็บ
   time += deltaTime
   gametime = time
-  lobj.innerText = "time: "+time.toFixed( 2 )
+  htmlTime.innerHTML = "Time(sec.): "+time.toFixed( 2 )
   //console.log("time="+time)
 }
 
@@ -463,22 +495,23 @@ function updatePhysics( deltaTime ) {
   }
   //console.log(THREE.Math.randInt(-30,30));
   //console.log(deltaTime);
-  let randCreate = THREE.Math.randInt(-20,20)
+  let randCreate = THREE.Math.randInt(-55,55)
   if(randCreate==1){
     createBox()
-    coucik.style.color = '#990000'
     //mouseMesh.material.color.setHex( 0xaa0000 );
   }
   if(clickcount>=20&&randCreate==10){
     createCan()
-    coucik.style.color = '#00bb00'
+    htmlScore.style.color = '#c900ff'
     //mouseMesh.material.color.setHex( 0x00bb00 );
   }
   if(clickcount>=50&&randCreate==-10){
     createCone()
-    coucik.style.color = '#0000ff'
+    htmlScore.style.color = '#00c9ff'
     //mouseMesh.material.color.setHex( 0x0000ff );
   }
+//Collision Detection
+//console.log(mouseMesh);
   for (var vertexIndex = 0; vertexIndex < mouseMesh.geometry.vertices.length; vertexIndex++)
 	{
 		var localVertex = mouseMesh.geometry.vertices[vertexIndex].clone();
@@ -492,49 +525,43 @@ function updatePhysics( deltaTime ) {
       collisionResults[0].object.material.transparent = true
       clickcount--
     }
-    //console.log(collisionResults[0])
-	}
-  var raycasterball = new THREE.Raycaster(mouseCoords,camera)
-  var ballintersects = raycaster.intersectObjects(ballshooter)
-  if(ballintersects.length>0){
-    if(ballintersects[0].object.position.z>10)scene.remove(ballintersects[0].object)
-    //console.log(ballintersects[0].object.name);
-    //console.log(ballintersects[0].object.position);
-    console.log(ballintersects[0].object.name,' remove');
   }
+  //remove balls ไม่เวิค
+  // var raycasterball = new THREE.Raycaster()
+  // raycasterball.setFromCamera(mouseCoords,camera)
+  // var intersectsball = raycasterball.intersectObjects(ballshooter)
+  // // console.log(intersectsball)
+  // if(intersectsball.length>0){
+  //   if(intersectsball[0].object.position.z>=15){
+  //     scene.remove(intersectsball[0].object)
+  //     console.log(intersectsball[0].object.name,intersectsball[0].object.position.z,"remove");
+  //   }
+  // }
+  //remove boxes
+  // var raycasterboxes = new THREE.Raycaster()
+  // raycasterboxes.setFromCamera(mouseCoords,camera)
+  // var intersectsboxes = raycasterboxes.intersectObjects(boxes)
+  // if(intersectscans.length>0){
+  //   if(intersectscans[0].object.position.z>=0 && intersectscans[0].object.geomtry=="BoxGeometry"){
+      // intersectsboxes[0].object.geometry.dispose();
+      // intersectsboxes[0].object.material.dispose();
+      // scene.remove(intersectscans[0].object)
+  //   }
+  // }
+
 
   //พิมพ์ค่าจำนวนที่ได้นับไว้บนหน้าเว็บ
-  coucik.innerText = "Score: "+clickcount
+  htmlScore.innerText = "Score: "+clickcount
   gamescore = clickcount
-  // console.log('cc',gamescore,'tt',gametime,'ip',ipaddress);
-  // if(clickcount==5){
-  //   insertDB(gametime,ipaddress,gamescore)
-  //   console.log('Insert SS');
-  //   }
+  // console.log('cc:',gamescore,'tt:',gametime,'name:',playerName,'country:',playerCoutry);
 }
-window.onload=function(){
-  showDB();
+//Database
+function addData(name,coutry,score,time){
+  const db=firebase.firestore();
+	db.collection('Users').add({
+		 name: name,
+    score: score,
+    country: coutry,
+    time: time
+	});
 }
-function showDB(){
-  var firebaseRef=firebase.database().ref("User0")
-  firebaseRef.once('value').then(function(dataSnapshot){
-    console.log(dataSnapshot.val());
-  })
-}
-
-// function insertDB(time,ip,score){
-//   var firebaseRef=firebase.database().ref("User0")
-//   firebaseRef.push({
-//     Dt:time,
-//     Ip:ip,
-//     Sd2:score
-//   })
-// }
-// function delDB(time,ip,score){
-//   var firebaseRef=firebase.database().ref("User0")
-//   firebaseRef.remove().then(function(){
-//     console.log("Remove SS");
-//   }).catch(function(error){
-//   console.log('remove error',error.message);
-//   })
-// }
