@@ -1,24 +1,51 @@
+html {
+  touch-action: manipulation;
+}
 body{
 	background:rgba(0,0,0,0.3);
 	font-family:Monospace;
-	font-size:15px;
-	text-align:center;
+	font-size:14px;
+	text-align:left;
   margin: 0;
 	overflow: hidden;
 }
 .button{
-	position: absolute;
-	bottom: 20px;
-	cursor: pointer;
-	font-size: 16px;
+  background-color:#fa5656;
+  border: none;
+  color: white;
+  padding: 10px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  position: absolute;
+  bottom:50px;
+  opacity:0.5;
 }
-.button:hover {
-	background-color: #fffffe
-}
-.button:active {
+/* button:hover {
+	background-color: #5a5a1a
+} */
+/* button:active {
   background-color: #fffffc;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
+} */
+.linkbtn {
+  background-color: rgb(24, 248, 117);
+  border: none;
+  color: white;
+  padding: 10px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  position: absolute;
+  bottom:10px;
+  opacity:0.5;
 }
 .hide {
   display:none;
@@ -107,4 +134,8 @@ body{
 button {
   padding: 20px;
   font-size: 20px;
+}
+
+#map {
+  touch-action: none;
 }

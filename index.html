@@ -7,9 +7,6 @@
       <link rel="manifest" href="manifest.json">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale1">
-			
-			<!-- Web Application Manifest -->
-			<link rel="manifest" href="manifest.json">
 
 			<!-- Add to homescreen for Chrome on Android -->
 			<meta name="mobile-web-app-capable" content="yes">
@@ -23,26 +20,45 @@
 			<meta name="apple-mobile-web-app-status-bar-style" content="#4285F4">			
 			<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
 			<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+			src="https://code.jquery.com/jquery-3.3.1.min.js"
+			integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			crossorigin="anonymous"></script>
 			<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js" integrity="sha384-vhJnz1OVIdLktyixHY4Uk3OHEwdQqPppqYR8+5mjsauETgLOcEynD9oPHhhz18Nw" crossorigin="anonymous"></script>			 -->
+			<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#dialog" ).dialog({
+      autoOpen: false,
+      show: {
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "explode",
+        duration: 1000
+      }
+    });
+ 
+    $( "#opener" ).on( "click", function() {
+      $( "#dialog" ).dialog( "open" );
+    });
+  } );
+  </script>
 		</head>
 		<!-- <body onload="goFunction()"> -->
 		<body>
 			<noscript>
-				Your browser can not support javascript.
+				Your browser not support javascript.
 			</noscript>
 
 			<div id="container"></div>
-			<div id="coucik"></div>
-			<div id="getip"></div>
-			<div id="country"></div>
-			<div id="lobj"></div>
-			<div id="TutContainer"></div>
-			<div id="title">
-			<!--<button class="button" onclick="openFullscreen();">Fullscreen</button>-->
-			<!-- <h1>RandGeo 3D</h1>
+
+			<!--<div id="title">
+			<button class="button" onclick="openFullscreen();">Fullscreen</button>
+				<h1>RandGeo 3D</h1>
 	      <h2 id="start-button">Start</h2>
 				<h2 id="credit-button">Credit</h2>
 				<a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://abc3dz.github.io/RandGeo/" onclick="window.open(this.href, 'facebook-share','width=500,height=300');return false;"  >facebook</a>
@@ -50,53 +66,14 @@
 				<a class="google-plus" href="https://plus.google.com/share?url=https://abc3dz.github.io/RandGeo/" onclick="window.open(this.href, 'google-plus-share', 'width=500,height=300');return false;">g+</a>
 			</div> -->
 			<div id="creditlg" class="hide"><img src="img/logo.png"></div>
-			<p id="loadwait">Please wait Please wait</p>
+			<p id="loadwait">Please wait.......</p>
 			<script src="js/three.js"></script>
-			<script src="js/OrbitControls.js"></script>
 			<script src="js/ammo.js"></script>
+			<!-- <script src="js/OrbitControls.js"></script>			
 			<script src="js/OutlineEffect.js"></script>
-			<!--<script src="js/GLTFLoader.js"></script>-->
+			<script src="js/GLTFLoader.js"></script> -->
 			<script src="main.js"></script>
-			<script>
-			//This is the "Offline page" service worker
-
-			//Add this below content to your HTML page, or add the js file to your page at the very top to register service worker
-			if (navigator.serviceWorker.controller) {
-			  console.log('[PWA Builder] active service worker found, no need to register')
-			} else {
-			  //Register the ServiceWorker
-			  navigator.serviceWorker.register('sw.js', {
-			    scope: './'
-			  }).then(function(reg) {
-			    console.log('Service worker has been registered for scope:'+ reg.scope);
-			  });
-			}
-
-
-			</script>
-			<script>
-			var elem = document.documentElement;
-			function openFullscreen() {
-			  if (elem.requestFullscreen) {
-			    elem.requestFullscreen();
-			  } else if (elem.mozRequestFullScreen) { /* Firefox */
-			    elem.mozRequestFullScreen();
-			  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-			    elem.webkitRequestFullscreen();
-			  } else if (elem.msRequestFullscreen) { /* IE/Edge */
-			    elem.msRequestFullscreen();
-			  }
-			}
-			// function goFunction(){
-			// 	goComp = document.getElementById("loadwait")
-			// 	goComp.style.color = "#990000";
-			// 	goComp.innerHTML = "Go Go Go Go Go Go Go";
-			// 	startButton = document.getElementById("start-button");
-			// 	startButton.style.color = "#990000";
-			// 	creditButton = document.getElementById("credit-button");
-			// 	creditButton.style.color = "#990000";
-			// }
-			</script>
+			
 			<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
 			<script>
 			  // Initialize Firebase
@@ -110,11 +87,13 @@
 			  };
 			  firebase.initializeApp(config);
 			</script>
-
+    	<script>
+			// TODO add service worker code here
+			if ('serviceWorker' in navigator) {
+				navigator.serviceWorker
+								.register('/sw.js')
+								.then(function() { console.log('Service Worker Registered'); });
+			}
+			</script>
 		</body>
-		<!-- <script type="text/javascript">
-			if ('serviceworker' in navigator){
-				navigator.serviceworker,register('/sw.js')
-				.then(function(){console.log('Sw registered');});
-		}</script> -->
 	</html>
