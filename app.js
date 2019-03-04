@@ -2,6 +2,8 @@ const db=firebase.firestore();
 const db_player=firebase.firestore();
 const table=document.querySelector('#tbresult');
 const table_player=document.querySelector('#tbresult_player');
+var numrow = 1
+var numrowPlayer = 1
 // db.collection('Users').get().then((snapshot)=>{
 // db.collection('Users').where('score','>','400').get().then((snapshot)=>{
 db.collection('Users').orderBy('score','desc').limit(10).get().then((snapshot)=>{
@@ -20,17 +22,18 @@ $.getJSON('https://ipapi.co/json/', function(data) {
 	});
 });	
 	
-
 function showData(doc){
 	var row=table.insertRow(-1);
 	var cell1=row.insertCell(0);
 	var cell2=row.insertCell(1);
 	var cell3=row.insertCell(2);
 	var cell4=row.insertCell(3);
+	var cell5=row.insertCell(4);
 	cell1.innerHTML=doc.data().name;
 	cell2.innerHTML=doc.data().country;
 	cell3.innerHTML=doc.data().score;
 	cell4.innerHTML=doc.data().time;
+	cell5.innerHTML=numrow++
 }
 function showDataPlayer(doc){
 	var row=table_player.insertRow(-1);
@@ -38,10 +41,12 @@ function showDataPlayer(doc){
 	var cell2=row.insertCell(1);
 	var cell3=row.insertCell(2);
 	var cell4=row.insertCell(3);
+	var cell5=row.insertCell(4);
 	cell1.innerHTML=doc.data().name;
 	cell2.innerHTML=doc.data().country;
 	cell3.innerHTML=doc.data().score;
 	cell4.innerHTML=doc.data().time;
+	cell5.innerHTML=numrowPlayer++
 }
 
 

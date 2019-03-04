@@ -162,12 +162,12 @@ function initGraphics() {
     alert('Thank you for playing');
     showDBfirewok();
     //console.log('Sc:',gamescore,'Ti:',gametime,'Na:',playerName,'Cou:',playerCoutry);
-    //addData(playerName,playerCoutry,gamescore,gametime)
+    addData(playerName,playerCoutry,gamescore,gametime)
     //return false;
   };
-  // btn.onmouseover = function()  {
-  //     this.style.backgroundColor = "blue";
-  // }  
+  btn.onmouseover = function()  {
+      this.style.backgroundColor = "blue";
+  }  
   document.body.appendChild(btn);
   console.log(btn.style)
   let linkbtn = document.createElement("a");
