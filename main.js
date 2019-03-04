@@ -32,14 +32,44 @@ var mouseCoords = new THREE.Vector2()
 var raycaster = new THREE.Raycaster()
 var boxes = []
 var clickcount=0
-var intersects,intersectscans
+var intersectscans
 //DataFirebase
-var playerName = "Rg"
-var playerCoutry = "What"
+var playerName = "Anonymously"
+var playerIp = "1.1.1.1"
+var playerCoutry = "Country"
 var gamescore = 0
 var gametime = 0
 //Html
-var htmlTime, htmlScore, htmlPlayer, htmlCountry
+var htmlTime, htmlScore, htmlPlayer, htmlCountry, htmlIp
+//Start
+var startCenter = document.createElement('center')
+var labelName = document.createElement('label')
+var inputName = document.createElement('input')
+inputName.style.position = 'Absolute'
+inputName.style.top = '20px'
+inputName.style.textAlign = 'left'
+inputName.setAttribute('type','text')
+inputName.setAttribute('placeholder','PlayerName')
+startCenter.appendChild(inputName)
+var startButton = document.createElement('button')
+startButton.innerHTML = 'Start Game'
+startButton.style.position = 'Absolute'
+startButton.style.top = '50px'
+startButton.style.textAlign = 'center'
+startButton.addEventListener('click',startGame)
+startCenter.appendChild(startButton)
+document.body.appendChild(startCenter)
+
+function startGame(){
+  clickcount=0
+  time=0
+  gamescore=0
+  gametime=0
+  inputName.remove()
+  startButton.remove()
+  playerName = inputName.value
+  htmlPlayer.innerText = "Player: "+playerName
+}
 
 // - Main code -
 init()
@@ -77,7 +107,7 @@ function initGraphics() {
 
   container = document.getElementById( 'container' )
   container.appendChild(renderer.domElement);
-  console.log(container)
+  // console.log(container)
   //ถ้าจะเคลื่อนที่ไปตามมือที่จิ้มบนมือถือใช้นี้ไม่ได้
   // controls = new THREE.OrbitControls(camera, renderer.domElement);
   // // controls.enableKeys = false
@@ -142,16 +172,22 @@ function initGraphics() {
   htmlPlayer.style.top = '60px'
   htmlPlayer.style.textAlign = 'left'
   htmlPlayer.style.color = '#00ee00'
+  htmlPlayer.innerHTML = 'Player:'
   document.body.appendChild(htmlPlayer);
+
+  htmlIp = document.createElement("htmlIp")
+  htmlIp.style.position = 'absolute'
+  htmlIp.style.top = '80px'
+  htmlIp.style.textAlign = 'left'
+  htmlIp.style.color = '#00ee00'
+  document.body.appendChild(htmlIp);
 
   htmlCountry = document.createElement("htmlCountry")
   htmlCountry.style.position = 'absolute'
-  htmlCountry.style.top = '80px'
+  htmlCountry.style.top = '100px'
   htmlCountry.style.textAlign = 'left'
   htmlCountry.style.color = '#000066'
   document.body.appendChild(htmlCountry);
-
-  divdialog = document.createElement("div")
 
   var btn = document.createElement("button");
   btn.innerHTML = "Record Score";
@@ -159,15 +195,14 @@ function initGraphics() {
   btn.setAttribute('class','button')
   btn.setAttribute('id','opener')
   btn.onclick = function(){
-    alert('Thank you for playing');
-    // console.log('111 Sc:',gamescore,'Ti:',gametime,'Na:',playerName,'Cou:',playerCoutry);
+    // alert('Thank you for playing');
+    addData(playerIp,playerName,playerCoutry,gamescore,gametime)
+    console.log('1Sc:',gamescore,'Ti:',gametime,'Na:',playerName,'Ip:',playerIp,'Cou:',playerCoutry);
     clickcount=0
     time=0
     gamescore=0
     gametime=0
-    // showDBfirewok();
-    // console.log('2222 Sc:',gamescore,'Ti:',gametime,'Na:',playerName,'Cou:',playerCoutry);
-    addData(playerName,playerCoutry,gamescore,gametime)
+    console.log('2Sc:',gamescore,'Ti:',gametime,'Na:',playerName,'Ip:',playerIp,'Cou:',playerCoutry);
     //return false;
     
   };
@@ -175,7 +210,7 @@ function initGraphics() {
       this.style.backgroundColor = "blue";
   }  
   document.body.appendChild(btn);
-  console.log(btn.style)
+  // console.log(btn.style)
   let linkbtn = document.createElement("a");
   linkbtn.innerHTML = "Top Charts";
   linkbtn.setAttribute('href','./indexdb.html')
@@ -187,13 +222,27 @@ function initGraphics() {
   $.getJSON('https://ipapi.co/json/', function(data) {
     // console.log(JSON.stringify(data, null, 2));
       // getip.innerText = "PlayerIP: "+data.ip
-      playerName = data.ip
-      htmlPlayer.innerText = "Player: "+playerName
+      playerIp = data.ip
+      htmlIp.innerText = "Ip: "+playerIp
 
       playerCoutry = data.country_name
       htmlCountry.innerText = "Country: "+playerCoutry
       // console.log('cou:',playerCoutry);
   });
+
+  let gameDialog = document.createElement("div");
+  gameDialog.setAttribute('id','dialog')
+  gameDialog.setAttribute('title','RandGeo')
+  let gameDialogText = document.createElement("p");
+  gameDialogText.innerHTML = "Thank you for playing.\nPlayer can see a chart in"
+  let linkchart = document.createElement("a");
+  linkchart.innerHTML = "Top Charts";
+  linkchart.setAttribute('href','./indexdb.html')
+  linkchart.setAttribute('target','_blank')
+  gameDialog.appendChild(gameDialogText)
+  gameDialog.appendChild(linkchart)
+  document.body.appendChild(gameDialog);
+
   window.addEventListener( 'resize', onWindowResize, false )
 }
 
@@ -560,10 +609,11 @@ function updatePhysics( deltaTime ) {
   // console.log('cc:',gamescore,'tt:',gametime,'name:',playerName,'country:',playerCoutry);
 }
 //Database
-function addData(name,coutry,score,time){
+function addData(ip,name,coutry,score,time){
   const db=firebase.firestore();
 	db.collection('Users').add({
-		 name: name,
+    ip: ip,
+		name: name,
     score: score,
     country: coutry,
     time: time

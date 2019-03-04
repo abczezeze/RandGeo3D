@@ -14,7 +14,7 @@ db.collection('Users').orderBy('score','desc').limit(10).get().then((snapshot)=>
 });
 	
 $.getJSON('https://ipapi.co/json/', function(data) {
-	db_player.collection('Users').where('name','==',data.ip).get().then((snapshot)=>{
+	db_player.collection('Users').where('ip','==',data.ip).get().then((snapshot)=>{
 	snapshot.forEach(doc=>{
 		console.log(doc.data());				
 		showDataPlayer(doc);
@@ -29,11 +29,14 @@ function showData(doc){
 	var cell3=row.insertCell(2);
 	var cell4=row.insertCell(3);
 	var cell5=row.insertCell(4);
-	cell1.innerHTML=doc.data().name;
-	cell2.innerHTML=doc.data().country;
-	cell3.innerHTML=doc.data().score;
-	cell4.innerHTML=doc.data().time;
-	cell5.innerHTML=numrow++
+	var cell6=row.insertCell(5);
+	cell1.innerHTML=numrow++
+	cell2.innerHTML=doc.data().ip;
+	cell3.innerHTML=doc.data().name;
+	cell4.innerHTML=doc.data().country;
+	cell5.innerHTML=doc.data().score;
+	cell6.innerHTML=doc.data().time;
+	
 }
 function showDataPlayer(doc){
 	var row=table_player.insertRow(-1);
@@ -42,11 +45,13 @@ function showDataPlayer(doc){
 	var cell3=row.insertCell(2);
 	var cell4=row.insertCell(3);
 	var cell5=row.insertCell(4);
-	cell1.innerHTML=doc.data().name;
-	cell2.innerHTML=doc.data().country;
-	cell3.innerHTML=doc.data().score;
-	cell4.innerHTML=doc.data().time;
-	cell5.innerHTML=numrowPlayer++
+	var cell6=row.insertCell(5);
+	cell1.innerHTML=numrow++
+	cell2.innerHTML=doc.data().ip;
+	cell3.innerHTML=doc.data().name;
+	cell4.innerHTML=doc.data().country;
+	cell5.innerHTML=doc.data().score;
+	cell6.innerHTML=doc.data().time;
 }
 
 

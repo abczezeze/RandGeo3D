@@ -11,30 +11,30 @@
     <div  class="container">
       <h1>Top Ten Charts</h1>
     	<table class="table table-bordered" id='tbresult'>
-	    <tr><th>Player</th><th>Coutry</th><th>Score</th><th>Time(Sec.)</th><th>Number</th></tr>
+	    <tr><th>Number</th><th>Ip</th><th>Player</th><th>Coutry</th><th>Score</th><th>Time(Sec.)</th></tr>
       </table>
   </div>
 
   <div  class="container_player">
       <h1>Your Charts</h1>
       <table class="table table-bordered" id='tbresult_player'>
-      <tr><th>Player</th><th>Coutry</th><th>Score</th><th>Time(Sec.)</th><th>Number</th></tr>
+        <tr><th>Number</th><th>Ip</th><th>Player</th><th>Coutry</th><th>Score</th><th>Time(Sec.)</th></tr>
   </table>
 </div>
   </body>
 
-<script src="https://www.gstatic.com/firebasejs/5.8.3/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAPHXpcS0FVBLu3wB6_XFDlyQVVtiehnN4",
-    authDomain: "zrandgeo.firebaseapp.com",
-    databaseURL: "https://zrandgeo.firebaseio.com",
-    projectId: "zrandgeo",
-    storageBucket: "zrandgeo.appspot.com",
-    messagingSenderId: "20860383279"
-  };
-  firebase.initializeApp(config);
-</script>
+  <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAPHXpcS0FVBLu3wB6_XFDlyQVVtiehnN4",
+      authDomain: "zrandgeo.firebaseapp.com",
+      databaseURL: "https://zrandgeo.firebaseio.com",
+      projectId: "zrandgeo",
+      storageBucket: "zrandgeo.appspot.com",
+      messagingSenderId: "20860383279"
+    };
+    firebase.initializeApp(config);
+  </script>
 <script src=app.js></script>
 </html>
