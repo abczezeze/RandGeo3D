@@ -10,7 +10,8 @@ experiment:
 <br><img src="https://github.com/abc3dz/RandGeo/blob/master/img/lighthouse%20mobile.png" width="30%" height="30%">
 <br><img src="https://github.com/abc3dz/RandGeo/blob/master/img/lighthouse73.png" width="30%" height="30%">
 <br>Player can add this game to an application on mobile by Add to Home screen **Chrome
-<br>The mobile browser will ask, add this web to Application on mobile<a href="https://zrandgeo.firebaseapp.com/">zrandgeo.firebaseapp</a>
+<br>The mobile browser will ask, add this web to Application on mobile 
+<a href="https://zrandgeo.firebaseapp.com/">zrandgeo.firebaseapp</a>
 <br>
 <br>Demo GitHub: https://abc3dz.github.io/RandGeo3D/
 <br>Charts : https://abc3dz.github.io/RandGeo3D/indexdb
