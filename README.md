@@ -18,3 +18,4 @@ experiment:
 <br>5. Press the app to start playing the game to fill the smartphone screen. Like general apps
 <br>
 <br>Demo GitHub: https://abc3dz.github.io/RandGeo3D/
+<br>Charts : https://abc3dz.github.io/RandGeo3D/indexdb
