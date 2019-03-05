@@ -40,7 +40,7 @@ var playerCoutry = "Country"
 var gamescore = 0
 var gametime = 0
 //Html
-var htmlTime, htmlScore, htmlPlayer, htmlCountry, htmlIp
+var htmlTime, htmlScore, htmlPlayer, htmlCountry, htmlIp, btn
 //Start
 var startCenter = document.createElement('center')
 var labelName = document.createElement('label')
@@ -77,6 +77,7 @@ function startGame(){
   startButton.remove()
   playerName = inputName.value
   htmlPlayer.innerText = "Player: "+playerName
+  btn.disabled = false
   initInput()
 }
 
@@ -204,12 +205,13 @@ function initGraphics() {
   htmlCountry.style.textShadow = '0 0 4px #000'
   document.body.appendChild(htmlCountry);
 
-  var btn = document.createElement("button");
+  btn = document.createElement("button");
   btn.innerHTML = "Record Score";
   btn.setAttribute('title','Record & Reset a score')
   btn.setAttribute('class','button')
   btn.setAttribute('id','opener')
-  btn.onclick = function(){
+  btn.disabled = true
+  btn.onclick = function(){  
     // alert('Thank you for playing');
     addData(playerIp,playerName,playerCoutry,gamescore,gametime)
     console.log('1Sc:',gamescore,'Ti:',gametime,'Na:',playerName,'Ip:',playerIp,'Cou:',playerCoutry);
