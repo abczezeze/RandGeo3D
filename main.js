@@ -44,17 +44,24 @@ var htmlTime, htmlScore, htmlPlayer, htmlCountry, htmlIp
 //Start
 var startCenter = document.createElement('center')
 var labelName = document.createElement('label')
+labelName.innerHTML = "Please input name"
+labelName.setAttribute('for','pyname')
+labelName.style.position = 'Absolute'
+labelName.style.top = '200px'
+labelName.style.textShadow = '0 0 4px #ffffff'
+startCenter.appendChild(labelName)
 var inputName = document.createElement('input')
 inputName.style.position = 'Absolute'
-inputName.style.top = '20px'
+inputName.style.top = '220px'
 inputName.style.textAlign = 'left'
 inputName.setAttribute('type','text')
+inputName.setAttribute('id','pyname')
 inputName.setAttribute('placeholder','PlayerName')
 startCenter.appendChild(inputName)
 var startButton = document.createElement('button')
 startButton.innerHTML = 'Start Game'
 startButton.style.position = 'Absolute'
-startButton.style.top = '50px'
+startButton.style.top = '250px'
 startButton.style.textAlign = 'center'
 startButton.addEventListener('click',startGame)
 startCenter.appendChild(startButton)
@@ -65,15 +72,18 @@ function startGame(){
   time=0
   gamescore=0
   gametime=0
+  labelName.remove()
   inputName.remove()
   startButton.remove()
   playerName = inputName.value
   htmlPlayer.innerText = "Player: "+playerName
+  initInput()
 }
 
 // - Main code -
 init()
 animate()
+
 // - Functions -
 //เรียกใข้ฟังก์ชั่นที่จะดำเนินการ
 function init() {
@@ -86,7 +96,7 @@ function init() {
   initGraphics()
   initPhysics()
   createObjects()
-  initInput()
+  // initInput()
 }
 
 function initGraphics() {
@@ -157,36 +167,41 @@ function initGraphics() {
   htmlTime.style.position = 'absolute'
   htmlTime.style.top = '20px'
   htmlTime.style.textAlign = 'left'
-  htmlTime.style.color = '#ff90fc'
+  htmlTime.style.color = '#f747c7'
+  htmlTime.style.textShadow = '0 0 4px #000'
   document.body.appendChild(htmlTime);  
 
   htmlScore = document.createElement("htmlScore")
   htmlScore.style.position = 'absolute'
   htmlScore.style.top = '40px'
   htmlScore.style.textAlign = 'left'
-  htmlScore.style.color = '#990000'
+  htmlScore.style.color = '#ff1a28'
+  htmlScore.style.textShadow = '0 0 4px #000'
   document.body.appendChild(htmlScore);
 
   htmlPlayer = document.createElement("htmlPlayer")
   htmlPlayer.style.position = 'absolute'
   htmlPlayer.style.top = '60px'
   htmlPlayer.style.textAlign = 'left'
-  htmlPlayer.style.color = '#00ee00'
+  htmlPlayer.style.color = '#1aff3c'
   htmlPlayer.innerHTML = 'Player:'
+  htmlPlayer.style.textShadow = '0 0 4px #000'
   document.body.appendChild(htmlPlayer);
 
   htmlIp = document.createElement("htmlIp")
   htmlIp.style.position = 'absolute'
   htmlIp.style.top = '80px'
   htmlIp.style.textAlign = 'left'
-  htmlIp.style.color = '#00ee00'
+  htmlIp.style.color = '#ffa16c'
+  htmlIp.style.textShadow = '0 0 4px #000'
   document.body.appendChild(htmlIp);
 
   htmlCountry = document.createElement("htmlCountry")
   htmlCountry.style.position = 'absolute'
   htmlCountry.style.top = '100px'
   htmlCountry.style.textAlign = 'left'
-  htmlCountry.style.color = '#000066'
+  htmlCountry.style.color = '#1700ff'
+  htmlCountry.style.textShadow = '0 0 4px #000'
   document.body.appendChild(htmlCountry);
 
   var btn = document.createElement("button");
