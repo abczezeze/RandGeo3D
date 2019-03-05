@@ -46,7 +46,7 @@ function showDataPlayer(doc){
 	var cell4=row.insertCell(3);
 	var cell5=row.insertCell(4);
 	var cell6=row.insertCell(5);
-	cell1.innerHTML=numrow++
+	cell1.innerHTML=numrowPlayer++
 	cell2.innerHTML=doc.data().ip;
 	cell3.innerHTML=doc.data().name;
 	cell4.innerHTML=doc.data().country;
