@@ -44,8 +44,8 @@ function showDataPlayer(doc){
 	var cell3=row.insertCell(2);
 	var cell4=row.insertCell(3);
 	var cell5=row.insertCell(4);
-
-	cell1.innerHTML=numrow++
+	
+	cell1.innerHTML=numrowPlayer++
 	cell2.innerHTML=doc.data().name;
 	cell3.innerHTML=doc.data().country;
 	cell4.innerHTML=doc.data().score;
