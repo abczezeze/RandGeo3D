@@ -88,8 +88,6 @@ animate()
 // - Functions -
 //เรียกใข้ฟังก์ชั่นที่จะดำเนินการ
 function init() {
-  // var title = document.getElementById('title')
-  // title.remove()
   var loadwait = document.getElementById('loadwait')
   loadwait.remove()
   let creditlg = document.getElementById('creditlg')
@@ -189,21 +187,28 @@ function initGraphics() {
   htmlPlayer.style.textShadow = '0 0 4px #000'
   document.body.appendChild(htmlPlayer);
 
-  htmlIp = document.createElement("htmlIp")
-  htmlIp.style.position = 'absolute'
-  htmlIp.style.top = '80px'
-  htmlIp.style.textAlign = 'left'
-  htmlIp.style.color = '#ffa16c'
-  htmlIp.style.textShadow = '0 0 4px #000'
-  document.body.appendChild(htmlIp);
+  // htmlIp = document.createElement("htmlIp")
+  // htmlIp.style.position = 'absolute'
+  // htmlIp.style.top = '80px'
+  // htmlIp.style.textAlign = 'left'
+  // htmlIp.style.color = '#ffa16c'
+  // htmlIp.style.textShadow = '0 0 4px #000'
+  // document.body.appendChild(htmlIp);
 
   htmlCountry = document.createElement("htmlCountry")
   htmlCountry.style.position = 'absolute'
-  htmlCountry.style.top = '100px'
+  htmlCountry.style.top = '80px'
   htmlCountry.style.textAlign = 'left'
   htmlCountry.style.color = '#1700ff'
   htmlCountry.style.textShadow = '0 0 4px #000'
   document.body.appendChild(htmlCountry);
+
+  cantRec = document.createElement("cantRec")
+  cantRec.style.position = 'absolute'
+  cantRec.style.bottom = '90px'
+  cantRec.style.textAlign = 'left'
+  cantRec.style.color = '#4ef1d3'
+  cantRec.style.textShadow = '0 0 4px #000'
 
   btn = document.createElement("button");
   btn.innerHTML = "Record Score";
@@ -213,13 +218,28 @@ function initGraphics() {
   btn.disabled = true
   btn.onclick = function(){  
     // alert('Thank you for playing');
-    addData(playerIp,playerName,playerCoutry,gamescore,gametime)
-    console.log('1Sc:',gamescore,'Ti:',gametime,'Na:',playerName,'Ip:',playerIp,'Cou:',playerCoutry);
+    if(gamescore <= 0){
+      console.log("Your score more than zero. Please!")
+      cantRec.innerHTML = 'Your score more than zero. Please!'
+      setTimeout(function(){
+        cantRec.innerHTML = '';
+      }, 3000);
+      document.body.appendChild(cantRec);
+    }else{
+      console.log("Record score = ",gamescore)
+      cantRec.innerHTML = 'Record score: '+gamescore
+      setTimeout(function(){
+        cantRec.innerHTML = '';
+      }, 3000);
+      document.body.appendChild(cantRec);
+      addData(playerIp,playerName,playerCoutry,gamescore,gametime)
+    }    
+    // console.log('1Sc:',gamescore,'Ti:',gametime,'Na:',playerName,'Ip:',playerIp,'Cou:',playerCoutry);
     clickcount=0
     time=0
     gamescore=0
     gametime=0
-    console.log('2Sc:',gamescore,'Ti:',gametime,'Na:',playerName,'Ip:',playerIp,'Cou:',playerCoutry);
+    // console.log('2Sc:',gamescore,'Ti:',gametime,'Na:',playerName,'Ip:',playerIp,'Cou:',playerCoutry);
     //return false;
     
   };
@@ -240,7 +260,7 @@ function initGraphics() {
     // console.log(JSON.stringify(data, null, 2));
       // getip.innerText = "PlayerIP: "+data.ip
       playerIp = data.ip
-      htmlIp.innerText = "Ip: "+playerIp
+      // htmlIp.innerText = "Ip: "+playerIp
 
       playerCoutry = data.country_name
       htmlCountry.innerText = "Country: "+playerCoutry
@@ -564,21 +584,18 @@ function updatePhysics( deltaTime ) {
     }
   }
   //console.log(THREE.Math.randInt(-30,30));
-  //console.log(deltaTime);
   let randCreate = THREE.Math.randInt(-55,55)
   if(randCreate==1){
     createBox()
     //mouseMesh.material.color.setHex( 0xaa0000 );
   }
-  if(clickcount>=20&&randCreate==10){
+  if(randCreate==10){
     createCan()
     htmlScore.style.color = '#c900ff'
-    //mouseMesh.material.color.setHex( 0x00bb00 );
   }
-  if(clickcount>=50&&randCreate==-10){
+  if(randCreate==-10){
     createCone()
     htmlScore.style.color = '#00c9ff'
-    //mouseMesh.material.color.setHex( 0x0000ff );
   }
 //Collision Detection
 //console.log(mouseMesh);

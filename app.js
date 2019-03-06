@@ -29,13 +29,12 @@ function showData(doc){
 	var cell3=row.insertCell(2);
 	var cell4=row.insertCell(3);
 	var cell5=row.insertCell(4);
-	var cell6=row.insertCell(5);
+
 	cell1.innerHTML=numrow++
-	cell2.innerHTML=doc.data().ip;
-	cell3.innerHTML=doc.data().name;
-	cell4.innerHTML=doc.data().country;
-	cell5.innerHTML=doc.data().score;
-	cell6.innerHTML=doc.data().time;
+	cell2.innerHTML=doc.data().name;
+	cell3.innerHTML=doc.data().country;
+	cell4.innerHTML=doc.data().score;
+	cell5.innerHTML=doc.data().time;
 	
 }
 function showDataPlayer(doc){
@@ -45,13 +44,12 @@ function showDataPlayer(doc){
 	var cell3=row.insertCell(2);
 	var cell4=row.insertCell(3);
 	var cell5=row.insertCell(4);
-	var cell6=row.insertCell(5);
-	cell1.innerHTML=numrowPlayer++
-	cell2.innerHTML=doc.data().ip;
-	cell3.innerHTML=doc.data().name;
-	cell4.innerHTML=doc.data().country;
-	cell5.innerHTML=doc.data().score;
-	cell6.innerHTML=doc.data().time;
+
+	cell1.innerHTML=numrow++
+	cell2.innerHTML=doc.data().name;
+	cell3.innerHTML=doc.data().country;
+	cell4.innerHTML=doc.data().score;
+	cell5.innerHTML=doc.data().time;
 }
 
 
