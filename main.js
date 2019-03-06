@@ -75,7 +75,7 @@ function startGame(){
   labelName.remove()
   inputName.remove()
   startButton.remove()
-  playerName = inputName.value
+  playerName = inputName.value==''?'Anonymously':inputName.value
   htmlPlayer.innerText = "Player: "+playerName
   btn.disabled = false
   initInput()
@@ -185,7 +185,7 @@ function initGraphics() {
   htmlPlayer.style.top = '60px'
   htmlPlayer.style.textAlign = 'left'
   htmlPlayer.style.color = '#1aff3c'
-  htmlPlayer.innerHTML = 'Player:'
+  htmlPlayer.innerHTML = 'Player: '+playerName
   htmlPlayer.style.textShadow = '0 0 4px #000'
   document.body.appendChild(htmlPlayer);
 
