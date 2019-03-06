@@ -1,9 +1,9 @@
 # RandGeo3D
 Demo GitHub: https://abc3dz.github.io/RandGeo3D/
 <br>Charts : https://abc3dz.github.io/RandGeo3D/indexdb
-<br>score 1-19 add cube geometric
-<br>score 20-49 add cylinder geometric
-<br>score 50up add cone geometric
+<br>add cube geometric
+<br>add cylinder geometric
+<br>add cone geometric
 <br><img src="https://github.com/abc3dz/RandGeo/blob/master/screenshot/randgeo88.gif" width="30%" height="30%">
 <br>
 <br>-create webgame to PWA(app on mobile)
