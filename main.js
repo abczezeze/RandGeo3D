@@ -515,6 +515,7 @@ function onDocumentMouseDown(event){
     ballMesh.name = "ball_"+ballnum
     ballshooter.push(ballMesh)
     let ballShape = new Ammo.btSphereShape( ballRadius )
+    // console.log(ballShape)
     ballShape.setMargin( margin )
     pos.copy( raycaster.ray.direction )
     pos.add( raycaster.ray.origin )
@@ -618,29 +619,24 @@ function updatePhysics( deltaTime ) {
       clickcount--
     }
   }
-  //remove balls ไม่เวิค
-  // var raycasterball = new THREE.Raycaster()
-  // raycasterball.setFromCamera(mouseCoords,camera)
-  // var intersectsball = raycasterball.intersectObjects(ballshooter)
-  // // console.log(intersectsball)
-  // if(intersectsball.length>0){
-  //   if(intersectsball[0].object.position.z>=15){
-  //     scene.remove(intersectsball[0].object)
-  //     console.log(intersectsball[0].object.name,intersectsball[0].object.position.z,"remove");
-  //   }
-  // }
-  //remove boxes
-  // var raycasterboxes = new THREE.Raycaster()
-  // raycasterboxes.setFromCamera(mouseCoords,camera)
-  // var intersectsboxes = raycasterboxes.intersectObjects(boxes)
-  // if(intersectscans.length>0){
-  //   if(intersectscans[0].object.position.z>=0 && intersectscans[0].object.geomtry=="BoxGeometry"){
-      // intersectsboxes[0].object.geometry.dispose();
-      // intersectsboxes[0].object.material.dispose();
-      // scene.remove(intersectscans[0].object)
-  //   }
-  // }
+  
+  if(ballshooter.length>0){
+    for(let i=0;i<ballshooter.length;i++){
+      if(ballshooter[i].position.z<-30){
+        // console.log(ballshooter[i].name,ballshooter[i].position)
+        scene.remove(ballshooter[i])
+      }
+    }
+  }
 
+  if(boxes.length>0){
+    for(let i=0;i<boxes.length;i++){
+      if(boxes[i].position.z>0){
+        // console.log(boxes[i].name,boxes[i].position)
+        scene.remove(boxes[i])
+      }
+    }
+  }
 
   //พิมพ์ค่าจำนวนที่ได้นับไว้บนหน้าเว็บ
   htmlScore.innerText = "Score: "+clickcount
