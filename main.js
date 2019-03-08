@@ -39,6 +39,7 @@ var playerIp = "1.1.1.1"
 var playerCoutry = "Country"
 var gamescore = 0
 var gametime = 0
+
 //Html
 var htmlTime, htmlScore, htmlPlayer, htmlCountry, htmlIp, btn
 //Start
@@ -226,13 +227,17 @@ function initGraphics() {
       }, 3000);
       document.body.appendChild(cantRec);
     }else{
-      console.log("Record score = ",gamescore)
+      // console.log("Record score = ",gamescore)
       cantRec.innerHTML = 'Record score: '+gamescore
       setTimeout(function(){
         cantRec.innerHTML = '';
       }, 3000);
       document.body.appendChild(cantRec);
-      addData(playerIp,playerName,playerCoutry,gamescore,gametime)
+      // let currentTime=new Date()
+      // console.log('JS date: ',currentTime)
+      let firebaseDT=new firebase.firestore.Timestamp.now()
+      console.log('Firebase: ',firebaseDT)
+      addData(playerIp,playerName,playerCoutry,gamescore,gametime,firebaseDT)
     }    
     // console.log('1Sc:',gamescore,'Ti:',gametime,'Na:',playerName,'Ip:',playerIp,'Cou:',playerCoutry);
     clickcount=0
@@ -643,13 +648,14 @@ function updatePhysics( deltaTime ) {
   // console.log('cc:',gamescore,'tt:',gametime,'name:',playerName,'country:',playerCoutry);
 }
 //Database
-function addData(ip,name,coutry,score,time){
+function addData(ip,name,coutry,score,playtime,datetime){
   const db=firebase.firestore();
 	db.collection('Users').add({
     ip: ip,
 		name: name,
     score: score,
     country: coutry,
-    time: time
+    time: playtime,
+    dati: datetime
 	});
 }
