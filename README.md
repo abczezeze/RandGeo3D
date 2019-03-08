@@ -17,5 +17,6 @@ Demo GitHub: https://abc3dz.github.io/RandGeo3D/
 <br>-Player name
 <br>-Country
 <br>-Score
-<br>-Time(Sec.)
+<br>-PlayTime(Sec.)
+<br>-Date/Time
 
