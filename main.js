@@ -629,7 +629,7 @@ function updatePhysics( deltaTime ) {
     }
   }
 
-  if(boxes.length>0){
+  if(boxes.length>5){
     for(let i=0;i<boxes.length;i++){
       if(boxes[i].position.z>0){
         // console.log(boxes[i].name,boxes[i].position)
