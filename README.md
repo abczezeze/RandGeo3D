@@ -1,4 +1,4 @@
-# RandGeo3D
+# RandGeo3D ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
 Demo GitHub: https://abc3dz.github.io/RandGeo3D/
 <br>Charts : https://abc3dz.github.io/RandGeo3D/indexdb
 <br>add cube geometric
