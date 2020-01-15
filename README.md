@@ -10,6 +10,6 @@ Demo GitHub: https://abc3dz.github.io/RandGeo3D/
 <br>-Country(Show)
   <br>-Score(Show)
   <br>-PlayTime(Sec.)(Show)</b>
-<br>-IP
+<br>-IP address
 <br>-Date/Time
 
