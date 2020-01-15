@@ -4,7 +4,7 @@ Demo GitHub: https://abc3dz.github.io/RandGeo3D/
 <br>
 <br><img src="https://github.com/abc3dz/RandGeo/blob/master/screenshot/randgeo88.gif" width="30%" height="30%">
 <br>
-<br>***Record data
+<br>***Record data to Cloud Firestore
 <br>-Player name
 <br>-Country
 <br>-Score
