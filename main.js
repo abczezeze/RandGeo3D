@@ -184,7 +184,7 @@ function initGraphics() {
   htmlPlayer.style.top = '60px'
   htmlPlayer.style.textAlign = 'left'
   htmlPlayer.style.color = '#1aff3c'
-  htmlPlayer.innerHTML = 'Player: '+playerName
+  htmlPlayer.innerHTML = 'Player: '
   htmlPlayer.style.textShadow = '0 0 4px #000'
   document.body.appendChild(htmlPlayer);
 
@@ -466,8 +466,17 @@ function initInput() {
     event.clientY = event.touches[0].clientY
     onDocumentMouseDown( event )
   },false)
-  window.addEventListener('mousemove',onDocumentMousemove,false)
+  document.addEventListener('touchmove',onDocumentTouchMove,false);
+
+  document.addEventListener('mousemove',onDocumentMousemove,false)
   window.addEventListener('mousedown',onDocumentMouseDown,false)
+}
+
+function onDocumentTouchMove( event ) {
+  event.preventDefault();
+  event.clientX = event.touches[0].clientX;
+  event.clientY = event.touches[0].clientY;
+  onDocumentMouseMove( event );
 }
 
 function onDocumentMousemove(event){
@@ -629,9 +638,9 @@ function updatePhysics( deltaTime ) {
     }
   }
 
-  if(boxes.length>5){
+  if(boxes.length>0){
     for(let i=0;i<boxes.length;i++){
-      if(boxes[i].position.z>0){
+      if(boxes[i].position.z>5){
         // console.log(boxes[i].name,boxes[i].position)
         scene.remove(boxes[i])
       }
@@ -652,6 +661,6 @@ function addData(ip,name,coutry,score,playtime,datetime){
     score: score,
     country: coutry,
     time: playtime,
-    dati: datetime
+    //dati: datetime
 	});
 }
