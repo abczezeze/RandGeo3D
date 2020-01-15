@@ -36,7 +36,7 @@ function showData(doc){
 	cell3.innerHTML=doc.data().country;
 	cell4.innerHTML=doc.data().score;
 	cell5.innerHTML=doc.data().time;
-	cell6.innerHTML=doc.data().dati.toDate();
+	cell6.innerHTML=doc.data().dati;
 	// cell6.innerHTML=doc.data().dati;
 	
 }
@@ -54,7 +54,7 @@ function showDataPlayer(doc){
 	cell3.innerHTML=doc.data().country;
 	cell4.innerHTML=doc.data().score;
 	cell5.innerHTML=doc.data().time;
-	cell6.innerHTML=doc.data().dati.toDate();
+	cell6.innerHTML=doc.data().dati;
 }
 
 
