@@ -661,6 +661,6 @@ function addData(ip,name,coutry,score,playtime,datetime){
     score: score,
     country: coutry,
     time: playtime,
-    //dati: datetime
+    dati: datetime
 	});
 }
