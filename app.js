@@ -36,7 +36,7 @@ function showData(doc){
 	cell3.innerHTML=doc.data().country;
 	cell4.innerHTML=doc.data().score;
 	cell5.innerHTML=doc.data().time;
-	cell6.innerHTML=new Date(doc.data().dati.second*1000);
+	cell6.innerHTML=new Date(doc.data().dati.seconds*1000);
 	
 }
 function showDataPlayer(doc){
