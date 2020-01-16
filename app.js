@@ -35,7 +35,8 @@ function showData(doc){
 	cell2.innerHTML=doc.data().name;
 	cell3.innerHTML=doc.data().country;
 	cell4.innerHTML=doc.data().score;
-	cell5.innerHTML=doc.data().time.toFixed(2);
+	let sec = doc.data().time
+	cell5.innerHTML=sec.toFixed(2);
 	cell6.innerHTML=new Date(doc.data().dati.seconds*1000);
 	
 }
