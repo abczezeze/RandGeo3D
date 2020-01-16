@@ -35,7 +35,7 @@ function showData(doc){
 	cell2.innerHTML=doc.data().name;
 	cell3.innerHTML=doc.data().country;
 	cell4.innerHTML=doc.data().score;
-	cell5.innerHTML=doc.data().time.toFixed( 2 );
+	cell5.innerHTML=doc.data().time.toFixed(2);
 	cell6.innerHTML=new Date(doc.data().dati.seconds*1000);
 	
 }
@@ -46,14 +46,14 @@ function showDataPlayer(doc){
 	var cell3=row.insertCell(2);
 	var cell4=row.insertCell(3);
 	var cell5=row.insertCell(4);
-	//var cell6=row.insertCell(5);
+	var cell6=row.insertCell(5);
 	
 	cell1.innerHTML=numrowPlayer++
 	cell2.innerHTML=doc.data().name;
 	cell3.innerHTML=doc.data().country;
 	cell4.innerHTML=doc.data().score;
 	cell5.innerHTML=doc.data().time;
-	//cell6.innerHTML=doc.data().dati;
+	cell6.innerHTML=new Date(doc.data().dati.seconds*1000);
 }
 
 
