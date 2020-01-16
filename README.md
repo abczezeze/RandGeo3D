@@ -6,10 +6,9 @@ Demo GitHub: https://abc3dz.github.io/RandGeo3D/
 <br><img src="https://github.com/abc3dz/RandGeo3D/blob/master/screenshot/data_record_cloudfirebase.png" width="30%" height="30%">
 <br>
 <br>***Record data to Cloud Firestore
-<br>-<b>Player name(Show)
-<br>-Country(Show)
-  <br>-Score(Show)
-  <br>-PlayTime(Sec.)(Show)</b>
-<br>-IP address
+<br>-Player name
+<br>-Country
+<br>-Score
+<br>-PlayTime(Sec.)
 <br>-Date/Time
 
