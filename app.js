@@ -4,9 +4,10 @@ const table=document.querySelector('#tbresult');
 const table_player=document.querySelector('#tbresult_player');
 var numrow = 1
 var numrowPlayer = 1
+var img = new Image();
 // db.collection('Users').get().then((snapshot)=>{
 // db.collection('Users').where('score','>','400').get().then((snapshot)=>{
-db.collection('Users').orderBy('score','desc').limit(10).get().then((snapshot)=>{
+db.collection('Users').orderBy('score','desc').limit(15).get().then((snapshot)=>{
   snapshot.forEach(doc=>{
 		console.log(doc.data());
 		showData(doc);
@@ -31,14 +32,28 @@ function showData(doc){
 	var cell5=row.insertCell(4);
 	var cell6=row.insertCell(5);
 
+	
 	cell1.innerHTML=numrow++
+	console.log(numrow)
+	if(numrow==2){
+		img.src='img/1.png'
+		cell1.innerHTML='<img src="'+img.src+'" />';
+	}
+	if(numrow==3){
+		img.src='img/2.png'
+		cell1.innerHTML='<img src="'+img.src+'" />';
+	}
+	if(numrow==4){
+		img.src='img/3.png'
+		cell1.innerHTML='<img src="'+img.src+'" />';
+	}
+
 	cell2.innerHTML=doc.data().name;
 	cell3.innerHTML=doc.data().country;
 	cell4.innerHTML=doc.data().score;
 	let sec = doc.data().time;
 	cell5.innerHTML=sec.toFixed(2);
-	cell6.innerHTML=new Date(doc.data().dati.seconds*1000);
-	
+	cell6.innerHTML=new Date(doc.data().dati.seconds*1000);	
 }
 function showDataPlayer(doc){
 	var row=table_player.insertRow(-1);
