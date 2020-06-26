@@ -7,6 +7,7 @@ Demo GitHub: https://abc3dz.github.io/RandGeo3D/
 <br>
 <br>***Record data to Cloud Firestore
 <br>-Player name
+<br>-IP
 <br>-Country
 <br>-Score
 <br>-PlayTime(Sec.)
