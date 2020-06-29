@@ -12,4 +12,4 @@ Demo GitHub: https://abc3dz.github.io/RandGeo3D/
 <br>-PlayTime(Sec.)
 <br>-Date/Time
 <br><br>
-<iframe allowfullscreen="" frameborder="0" height="270" src="https://www.youtube.com/embed/AWNptE7jQ_I" width="480"></iframe>
+https://youtu.be/AWNptE7jQ_I
