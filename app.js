@@ -7,7 +7,7 @@ var numrowPlayer = 1
 var img = new Image();
 // db.collection('Users').get().then((snapshot)=>{
 // db.collection('Users').where('score','>','400').get().then((snapshot)=>{
-db.collection('Users').orderBy('score','desc').limit(15).get().then((snapshot)=>{
+db.collection('Users').orderBy('score','desc').limit(10).get().then((snapshot)=>{
   snapshot.forEach(doc=>{
 		console.log(doc.data());
 		showData(doc);
