@@ -1,5 +1,4 @@
 # RandGeo3D ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
-Demo GitHub: https://abczezeze.github.io/RandGeo3D/
 <br>Charts : https://abczezeze.github.io/RandGeo3D/indexdb
 <br>
 <br><img src="https://1.bp.blogspot.com/-lZ4a4RRDKio/YCYKx1QQRiI/AAAAAAAANMk/J4-DPE9YfYwZyNqT6-EYo0Kfr6nyegfawCNcBGAsYHQ/s1333/randgeo88.gif" width="30%" height="30%">
@@ -11,5 +10,3 @@ Demo GitHub: https://abczezeze.github.io/RandGeo3D/
 <br>-Score
 <br>-PlayTime(Sec.)
 <br>-Date/Time
-<br><br>
-https://youtu.be/AWNptE7jQ_I
